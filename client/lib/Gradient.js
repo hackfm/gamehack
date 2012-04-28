@@ -1,9 +1,9 @@
 var Gradient = function() {
 	function smoothBlend(c1,c2,p) {
 		return {
-			r: c1.r*p+c2.r*(1-p),
-			g: c1.g*p+c2.g*(1-p),
-			b: c1.b*p+c2.b*(1-p)
+			r: Math.floor(c1.r*p+c2.r*(1-p)),
+			g: Math.floor(c1.g*p+c2.g*(1-p)),
+			b: Math.floor(c1.b*p+c2.b*(1-p))
 		};
 	}
 	function randomDither(c1,c2,p) {
@@ -17,8 +17,6 @@ var Gradient = function() {
 	function bayerDither(c1,c2,p,x,y,colourSteps) {
 		var quantisedP = Math.floor((p+(bayerGrid[x%3][y%3]/(10*colourSteps)))*colourSteps)/colourSteps
 		return smoothBlend(c1,c2,quantisedP);
-		var scale = 255/realColours;
-		return p<(bayerGrid[x%3][y%3]/10)?c1:c2;
 	}
 	
 	function render(c1,c2,colourSteps,element) {
@@ -40,5 +38,20 @@ var Gradient = function() {
 		}
 		context.putImageData(imageData,0,0);
 	}
-	return {"render": render}
+	function renderMagicTable(c1,c2,colourSteps,magicTable) {
+		for (var y=0;y<magicTable.height;y++) {
+			var proportion = y/magicTable.height;
+			for (var x=0;x<magicTable.width;x++) {
+				var offset = (y*magicTable.width+x)*4;
+			
+				var c = bayerDither(c1,c2,proportion,x,y,colourSteps);
+				
+				magicTable.setPixel(x,y,rgb);
+			}
+		}
+	}
+	return {
+		"render": render,
+		"renderMagicTable": renderMagicTable
+	};
 }();
