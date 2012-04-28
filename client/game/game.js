@@ -3,10 +3,10 @@ var yourPlayer;
 (function($) {
     $(document).ready(function() {
 
-        var globalSpeed = 10;
+        var globalSpeed = 15;
 
         // This objects connects to the server. That's pretty important, huh?!
-        var gameTimer = new GameTimer(3);
+        var gameTimer = new GameTimer(30);
 
         // This object communicates with the server
         var server = new FakeServer();
@@ -25,23 +25,21 @@ var yourPlayer;
         var sceneryMagicTable = new MagicTable($("#scenery")[0], camera.width, camera.height, camera.pixelSize);
         // Map are drawn in the scenery Table and they talk to the server.
         var map = new Map(server, sceneryMagicTable);
-        /*map.drawArea(0);
-
-        var offset = 0;
-        setInterval(function() {
-            map.drawArea(offset++);
-        }, 1000);*/
         
-        // Replace this later with map or some function. Ask sven
-        var fakeMap = function(){return ""};
+        var mapCheckFunction = function(x, y){
+            return map.getPixel(x, y);
+        };
 
 
         // This is you! Yeah!
-        var yourPlayer = new Player(fakeMap, camera.width, globalSpeed);
+        var yourPlayer = new Player(mapCheckFunction, camera.width, globalSpeed);
         camera.setFocusPlayer(yourPlayer);
+        camera.onUpdateMap(function(offsetY) {
+            map.drawArea(offsetY);
+        })
         
         // We store all players in a dedicated list
-        var playerList = new PlayerList(yourPlayer, server, fakeMap, globalSpeed);        
+        var playerList = new PlayerList(yourPlayer, server, mapCheckFunction, globalSpeed);        
 
 
         //var playerMagic = new MagicCanvas(playersElem, width, height);
@@ -52,15 +50,12 @@ var yourPlayer;
         //var backgroundRenderer = new BackgroundRenderer(gameTimer, camera, backgroundElem);
 
                 
-        yourPlayer.addEvent({t: gameTimer.getGameTime(), x: Math.round(camera.width/2), y: 0, v: 10, dx: 0});
+        yourPlayer.addEvent({t: gameTimer.getGameTime(), x: Math.round(camera.width/2), y: 0, v: 1, dx: 0});
 
         var controls = new Controls(yourPlayer, gameTimer);
 
         // Start the timer!
         gameTimer.start();
-
-        // Initiate your player with the current gametime, position and stuff
-        yourPlayer.addEvent({t: gameTimer.getGameTime(), x: Math.round(camera.width/2), y: 0, v: 20, dx: 0});
 
 
     })
