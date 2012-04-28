@@ -50,7 +50,7 @@ Level.prototype.getMap = function(number, length, width)
     {
         for (var x=0; x<4; ++x)
         {
-            var t = mt.extract_number() % 20;
+            var t = mt.extract_number() % 35;
             var c;
             if (t===0)
             {
@@ -80,7 +80,7 @@ Level.prototype.getMap = function(number, length, width)
     }
     
     // obstacles
-    var o=3+ mt.extract_number()%12;
+    var o=6+ mt.extract_number()%24;
     for (var i=0; i<o; ++i)
     {
         var x;
