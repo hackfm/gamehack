@@ -25,9 +25,8 @@ var yourPlayer = {
         var height = 57;
 
         var gameTimer = new GameTimer(30);
-
-
-        var server = new Server();
+        
+        var server = new FakeServer();
         server.onGametime(function(gTime) {
             gameTimer.setGameTime(gTime);
             console.log(gameTimer.getGameTime());
@@ -45,7 +44,7 @@ var yourPlayer = {
 //        var backgroundRenderer = new BackgroundRenderer(gameTimer, camera, playerCanvas);
         
         gameTimer.start();
-        yourPlayer.addEvent({t: gameTimer.gameTime, x: Math.round(width/2), y: 0, v: 20, dx: 0});
+        yourPlayer.addEvent({t: gameTimer.getGameTime(), x: Math.round(width/2), y: 0, v: 20, dx: 0});
         
         var fakeControls = setInterval(function() {
             var action;
@@ -55,7 +54,7 @@ var yourPlayer = {
             } else if (ran > 0.3) {
                 action = 'left';
             }
-            yourPlayer.createEvent(gameTimer.gameTime, action);        
+            yourPlayer.createEvent(gameTimer.getGameTime(), action);        
         }, 500)
 
     })
