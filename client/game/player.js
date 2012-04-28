@@ -3,9 +3,10 @@ var velocity_factor = [
     0.7071067811865476
     ];
 
-var Player = function(map, width) {
+var Player = function(map, width, speed) {
     this.map = map;
     this.width = width;
+    this.speed = speed||1;
     this.events = [];
 };
 
@@ -145,7 +146,7 @@ Player.prototype.getPosition = function(t) {
     var inc = v > 0 ? 1 : -1; // direction of y-velocity
     var dx = (event.dx||0)|0;
     var vy = v * velocity_factor[Math.abs(dx)];
-    var T = inc/vy; // time needed for travelling one pixel in y-direction
+    var T = inc/vy/this.speed; // time needed for travelling one pixel in y-direction
     var obstacle = false;
 
     while(true)
@@ -180,7 +181,7 @@ Player.prototype.getPosition = function(t) {
             continue;
         }
         vy = v * velocity_factor[Math.abs(dx)];
-        T = inc/vy;
+        T = inc/vy/this.speed;
     }
 
     return {x:x, y:y, t:now, v:v, dx:dx, obstacle:obstacle};
