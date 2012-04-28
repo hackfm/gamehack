@@ -57,11 +57,7 @@ FakeServer = (function() {
     this.onMapSegment = __bind(this.onMapSegment, this);
 
     this.onGametime = __bind(this.onGametime, this);
-    if (this.callbackOnGametime) {
-      this.callbackOnGametime(data.gametime);
-    } else {
-      console.log('Y U NO USE Server.onGametime??');
-    }
+
     /*
             @socket.on 'mapSegment', (data) =>
                 if @callbackOnMapSegment 
@@ -73,7 +69,7 @@ FakeServer = (function() {
   }
 
   FakeServer.prototype.onGametime = function(callbackOnGametime) {
-    return this.callbackOnGametime = callbackOnGametime;
+    return callbackOnGametime(data.gametime);
   };
 
   FakeServer.prototype.onMapSegment = function(callbackOnMapSegment) {
