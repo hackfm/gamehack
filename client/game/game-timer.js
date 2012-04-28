@@ -4,13 +4,9 @@ var GameTimer = function(fps) {
     var timer;
     var subscribers = [];
     gameTimer.fps = fps;
-    gameTimer.startTime = null;
-    gameTimer.gameTime = null;
+    gameTimer.zeroGameTime = null;
 
     var update = function() {
-        var now = new Date();
-        var currentTime = now.getTime();
-        gameTimer.gameTime = currentTime - this.startTime
         subscribers.forEach(function(subscriber) {
             subscriber(gameTimer.gameTime);
         });
@@ -24,10 +20,14 @@ var GameTimer = function(fps) {
         timer = setInterval(function() {
             update();
         }, 1000/this.fps);
+    }
 
-        var startDate = new Date()
-        gameTimer.startTime = startDate.getTime();
-        gameTimer.gameTime = gameTimer.startTime;
+    gameTimer.setGameTime = function(offset) {
+        gameTimer.zeroGameTime = new Date().getTime()/1000 - offset;
+    }
+
+    gameTimer.getGameTime = function() {
+        return (new Date().getTime()/1000) - gameTimer.zeroGameTime;
     }
 
     return gameTimer;
