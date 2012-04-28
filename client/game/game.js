@@ -25,7 +25,12 @@ var yourPlayer = {
 
         var camera = new Camera(57, gameTimer, yourPlayer);
 
-        var playerRenderer = new PlayerRenderer([yourPlayer], gameTimer, camera, playerCanvas);
+        var playersElem = $("#players")[0];
+        //var playerMagicCanvas = new MagicCanvas(playersElem, 48, 57);
+        var playerMagicTable = new MagicTable(playersElem, 48, 57, 4);
+        var playerRenderer = new PlayerRenderer([yourPlayer], gameTimer, camera, playerMagicTable);
+
+//        var backgroundRenderer = new BackgroundRenderer(gameTimer, camera, playerCanvas);
         
         gameTimer.start();
         
