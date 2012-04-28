@@ -7,10 +7,11 @@ Map = (function() {
   Map.name = 'Map';
 
   function Map(server, sceneryTable) {
-    var _this = this;
     this.server = server;
     this.sceneryTable = sceneryTable;
     this.loadPart = __bind(this.loadPart, this);
+
+    this.getPixel = __bind(this.getPixel, this);
 
     this.drawArea = __bind(this.drawArea, this);
 
@@ -20,24 +21,23 @@ Map = (function() {
       speedup: [],
       slowdown: []
     };
-    this.loadPart(3);
-    this.server.onMapSegment(function(data) {
-      var e, _i, _len, _ref, _results;
-      console.log('map data', data);
-      _ref = data.obstacles;
-      _results = [];
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        e = _ref[_i];
-        _results.push((function(e) {
-          return _this.objects.obstacles.push(e);
-        })(e));
-      }
-      return _results;
-    });
+    this.map = ["oooooooooooo                                    ", "oxxxxxxxxxxo                                    ", "oxxxxxxxxxxo                                    ", "oooooooooooo                                    ", "                                                ", "                       +++++++++++++            ", "                       +++++++++++++            ", "                       +++++++++++++            ", "                       +++++++++++++            ", "                                                ", "                                                ", "                                                ", "                                                ", "              ooooooooooooo                     ", "              oxxxxxxxxxxxo                     ", "              oxxxxxxxxxxxo                     ", "              oxxxxxxxxxxxo                     ", "              oxxxxxxxxxxxo                     ", "               oxxxxxxxxxo                      ", "                oxxxxxxxo                       ", "                 ooooooo                        ", "                                                ", "                                                ", "xxxxxxxxxx                                      ", "xoooooooox                                      ", "xoooooooox                                      ", "xxxxxxxxxx               -------------          ", "                         -------------          ", "                         -------------          ", "                         -------------          ", "                                                ", "                                                ", "                                                ", "                                                ", "                                                ", "              ooooooooooooo                     ", "              oxxxxxxxxxxxo                     ", "              oxxxxxxxxxxxo                     ", "              oxxxxxxxxxxxo                     ", "              oxxxxxxxxxxxo                     ", "               oxxxxxxxxxo                      ", "                oxxxxxxxo                       ", "                 ooooooo                        ", "                                                ", "                                                ", "                                                ", "oooooooooooo                                    ", "oxxxxxxxxxxo                                    ", "oxxxxxxxxxxo                                    ", "oooooooooooo                                    ", "                                                ", "                       +++++++++++++            ", "                       +++++++++++++            ", "                       +++++++++++++            ", "                       +++++++++++++            ", "                                                ", "                                                ", "                                                ", "                                                ", "              ooooooooooooo                     ", "              oxxxxxxxxxxxo                     ", "              oxxxxxxxxxxxo                     ", "              oxxxxxxxxxxxo                     ", "              oxxxxxxxxxxxo                     ", "               oxxxxxxxxxo                      ", "                oxxxxxxxo                       ", "                 ooooooo                        ", "                                                ", "                                                ", "xxxxxxxxxx                                      ", "xoooooooox                                      ", "xoooooooox                                      ", "xxxxxxxxxx               -------------          ", "                         -------------          ", "                         -------------          ", "                         -------------          ", "                                                ", "                                                ", "                                                ", "                                                ", "                                                ", "              ooooooooooooo                     ", "              oxxxxxxxxxxxo                     ", "              oxxxxxxxxxxxo                     ", "              oxxxxxxxxxxxo                     ", "              oxxxxxxxxxxxo                     ", "               oxxxxxxxxxo                      ", "                oxxxxxxxo                       ", "                 ooooooo                        ", "                                                ", "                                                ", "                                                ", "oooooooooooo                                    ", "oxxxxxxxxxxo                                    ", "oxxxxxxxxxxo                                    ", "oooooooooooo                                    ", "                                                ", "                       +++++++++++++            ", "                       +++++++++++++            ", "                       +++++++++++++            ", "                       +++++++++++++            ", "                                                ", "                                                ", "                                                ", "                                                ", "              ooooooooooooo                     ", "              oxxxxxxxxxxxo                     ", "              oxxxxxxxxxxxo                     ", "              oxxxxxxxxxxxo                     ", "              oxxxxxxxxxxxo                     ", "               oxxxxxxxxxo                      ", "                oxxxxxxxo                       ", "                 ooooooo                        ", "                                                ", "                                                ", "xxxxxxxxxx                                      ", "xoooooooox                                      ", "xoooooooox                                      ", "xxxxxxxxxx               -------------          ", "                         -------------          ", "                         -------------          ", "                         -------------          ", "                                                ", "                                                ", "                                                ", "                                                ", "                                                ", "              ooooooooooooo                     ", "              oxxxxxxxxxxxo                     ", "              oxxxxxxxxxxxo                     ", "              oxxxxxxxxxxxo                     ", "              oxxxxxxxxxxxo                     ", "               oxxxxxxxxxo                      ", "                oxxxxxxxo                       ", "                 ooooooo                        ", "                                                ", "                                                ", "                                                ", "oooooooooooo                                    ", "oxxxxxxxxxxo                                    ", "oxxxxxxxxxxo                                    ", "oooooooooooo                                    ", "                                                ", "                       +++++++++++++            ", "                       +++++++++++++            ", "                       +++++++++++++            ", "                       +++++++++++++            ", "                                                ", "                                                ", "                                                ", "                                                ", "              ooooooooooooo                     ", "              oxxxxxxxxxxxo                     ", "              oxxxxxxxxxxxo                     ", "              oxxxxxxxxxxxo                     ", "              oxxxxxxxxxxxo                     ", "               oxxxxxxxxxo                      ", "                oxxxxxxxo                       ", "                 ooooooo                        ", "                                                ", "                                                ", "xxxxxxxxxx                                      ", "xoooooooox                                      ", "xoooooooox                                      ", "xxxxxxxxxx               -------------          ", "                         -------------          ", "                         -------------          ", "                         -------------          ", "                                                ", "                                                ", "                                                ", "                                                ", "                                                ", "              ooooooooooooo                     ", "              oxxxxxxxxxxxo                     ", "              oxxxxxxxxxxxo                     ", "              oxxxxxxxxxxxo                     ", "              oxxxxxxxxxxxo                     ", "               oxxxxxxxxxo                      ", "                oxxxxxxxo                       ", "                 ooooooo                        ", "                                                ", "                                                ", "                                                ", "oooooooooooo                                    ", "oxxxxxxxxxxo                                    ", "oxxxxxxxxxxo                                    ", "oooooooooooo                                    ", "                                                ", "                       +++++++++++++            ", "                       +++++++++++++            ", "                       +++++++++++++            ", "                       +++++++++++++            ", "                                                ", "                                                ", "                                                ", "                                                ", "              ooooooooooooo                     ", "              oxxxxxxxxxxxo                     ", "              oxxxxxxxxxxxo                     ", "              oxxxxxxxxxxxo                     ", "              oxxxxxxxxxxxo                     ", "               oxxxxxxxxxo                      ", "                oxxxxxxxo                       ", "                 ooooooo                        ", "                                                ", "                                                ", "xxxxxxxxxx                                      ", "xoooooooox                                      ", "xoooooooox                                      ", "xxxxxxxxxx               -------------          ", "                         -------------          ", "                         -------------          ", "                         -------------          ", "                                                ", "                                                ", "                                                ", "                                                ", "                                                ", "              ooooooooooooo                     ", "              oxxxxxxxxxxxo                     ", "              oxxxxxxxxxxxo                     ", "              oxxxxxxxxxxxo                     ", "              oxxxxxxxxxxxo                     ", "               oxxxxxxxxxo                      ", "                oxxxxxxxo                       ", "                 ooooooo                        ", "                                                ", "                                                ", "                                                ", "oooooooooooo                                    ", "oxxxxxxxxxxo                                    ", "oxxxxxxxxxxo                                    ", "oooooooooooo                                    ", "                                                ", "                       +++++++++++++            ", "                       +++++++++++++            ", "                       +++++++++++++            ", "                       +++++++++++++            ", "                                                ", "                                                ", "                                                ", "                                                ", "              ooooooooooooo                     ", "              oxxxxxxxxxxxo                     ", "              oxxxxxxxxxxxo                     ", "              oxxxxxxxxxxxo                     ", "              oxxxxxxxxxxxo                     ", "               oxxxxxxxxxo                      ", "                oxxxxxxxo                       ", "                 ooooooo                        ", "                                                ", "                                                ", "xxxxxxxxxx                                      ", "xoooooooox                                      ", "xoooooooox                                      ", "xxxxxxxxxx               -------------          ", "                         -------------          ", "                         -------------          ", "                         -------------          ", "                                                ", "                                                ", "                                                ", "                                                ", "                                                ", "              ooooooooooooo                     ", "              oxxxxxxxxxxxo                     ", "              oxxxxxxxxxxxo                     ", "              oxxxxxxxxxxxo                     ", "              oxxxxxxxxxxxo                     ", "               oxxxxxxxxxo                      ", "                oxxxxxxxo                       ", "                 ooooooo                        ", "                                                ", "                                                ", "                                                "];
+    /*
+            @server.onMapSegment (data) =>
+                console.log 'map data', data
+                
+                # add it to the array
+                for e in data.obstacles
+                    do (e) =>
+                        @objects.obstacles.push e
+                #@objects.speedup.concat   newObjects.speedup
+                #@objects.slowdown.concat  newObjects.slowdown
+    */
+
   }
 
-  Map.prototype.drawArea = function(lowerY) {
-    var color, height, width, x, y, _i, _results;
+  Map.prototype.drawArea = function(offset) {
+    var color, height, pixel, width, x, y, _i, _results;
     width = 48;
     height = 57;
     _results = [];
@@ -46,13 +46,33 @@ Map = (function() {
         var _j, _results1;
         _results1 = [];
         for (x = _j = 0; 0 <= width ? _j <= width : _j >= width; x = 0 <= width ? ++_j : --_j) {
-          color = [x * 5, y * 3, x, 1];
-          _results1.push(this.sceneryTable.setPixel(x, y, color));
+          pixel = this.getPixel(x, y + offset);
+          switch (pixel) {
+            case " ":
+              color = [0, 0, 0, 0];
+              break;
+            case "x":
+              color = [0, 255, 126, 1];
+              break;
+            case "o":
+              color = [0, 0, 0, 1];
+              break;
+            case "+":
+              color = [255, 0, 255, 1];
+              break;
+            case "-":
+              color = [0, 255, 255, 1];
+          }
+          _results1.push(this.sceneryTable.setPixel(x, height - y - 1, color));
         }
         return _results1;
       }).call(this));
     }
     return _results;
+  };
+
+  Map.prototype.getPixel = function(x, y) {
+    return this.map[y].charAt(x);
   };
 
   Map.prototype.loadPart = function(part) {
