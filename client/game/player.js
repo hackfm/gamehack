@@ -80,6 +80,7 @@ Player.prototype.createEvent = function(t, action) {
     var event = this.getPosition(t);
 
     event.dx = 0;
+    event.v = Math.min(event.v / 1.1, 1.0);
     
     if (!event.obstacle)
     {
@@ -127,6 +128,7 @@ Player.prototype.getPosition = function(t) {
         return event;
     }
 
+    var a = 0.003;
     var v = event.v; // current velocity
     var now = event.t;
     var x = event.x;
@@ -147,6 +149,7 @@ Player.prototype.getPosition = function(t) {
         now = next;
         y += inc;
         x += dx;
+        v = Math.min(v+2*a*T, 3.0);
 
         var tile = this.map(x, y);
 
