@@ -2,7 +2,7 @@ var MagicTable = function(element, width, height, pxSize) {
 	var jqElement = $(element);
 	var jqTable = $("<table />");
 	jqTable.addClass("magicTable");
-	jqElement.replaceWith(jqTable);
+	jqElement.append(jqTable);
 	this.elementArray = [];
 	this.width=width;
 	this.height=height;

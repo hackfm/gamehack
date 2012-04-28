@@ -6,6 +6,7 @@
 url        = require 'url'
 path       = require 'path'
 fs         = require 'fs'
+mapHelper  = require './mapHelper.functions'
 
 # MIME Types
 mimeTypes = 
@@ -15,6 +16,8 @@ mimeTypes =
     png:  "image/png"
     js:   "text/javascript"
     css:  "text/css"
+
+SEED = 1;
 
 
 app = require('http').createServer (req, res) ->
@@ -38,7 +41,8 @@ app = require('http').createServer (req, res) ->
             res.end('not found')   
             return
         mimeType = mimeTypes[path.extname(filename).split(".")[1]]
-        res.writeHead 200, mimeType
+        console.log mimeType
+        res.writeHead 200, {'Content-Type':mimeType}
         fileStream = fs.createReadStream filename
         fileStream.pipe res
         
@@ -65,10 +69,16 @@ gameTimeZero = new Date().getTime()/1000
 # Socket Server
 ## start socket io
 io = require('socket.io').listen portSocket
-io.sockets.on 'connection', (socket) ->
+io.sockets.on 'connection', (socket) =>
+
+    # send gametime
     socket.emit 'gametime', { gametime: (new Date().getTime()/1000) - gameTimeZero }
-    #socket.on 'my other event', (data) ->
-    #    console.log data
+
+    # map tiles might be requested
+    socket.on 'sendMapSegment', (num) =>
+        data = mapHelper.getMapTile SEED, num
+        console.log 'map', num, data
+        socket.emit 'mapSegment', data
 
 
 

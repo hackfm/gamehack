@@ -7,6 +7,10 @@
         body {            
             position: relative;        
         }   
+
+        #players table, #scenery table{
+            border: 1px solid red;
+        }
     </style>
 
     <script src="http://ec2-46-137-147-99.eu-west-1.compute.amazonaws.com:8081/socket.io/socket.io.js"></script>
@@ -18,13 +22,18 @@
     <script src="/game/camera.js"></script>
     <script src="/game/game-timer.js"></script>
     <script src="/game/player.js"></script>
+    <script src="/lib/Map.js"></script>
     <script src="/game/player-renderer.js"></script>
     <!--<script src="/game/background-renderer.js"></script>-->
     <script src="/game/game.js"></script>
 
 </head>
 <body>
-    Test
+    
+    <div id="players"></div>
+    <div id="scenery"></div>
+    <div id="background"></div>
+    
 
 </body>
 </html>

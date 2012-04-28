@@ -26,12 +26,19 @@ var yourPlayer = {
 
         var gameTimer = new GameTimer(3);
 
-
-        var server = new Server();
+        // This objects connects to the server. That's pretty important, huh?!
+        var server = new FakeServer();
         server.onGametime(function(gTime) {
             gameTimer.setGameTime(gTime);
-            console.log(gameTimer.getGameTime());
+            console.log("Gametime:",gameTimer.getGameTime());
         });
+
+
+        // Scenery is awesome! Let's draw it
+        var sceneryMagicTable = new MagicTable($("#scenery")[0], width, height, 4);
+
+        // Map are drawn in the scenery Table and they talk to the server.
+        var map = new Map(server, sceneryMagicTable);
 
         var yourPlayer = new Player(function(){return ""}, width);
 
@@ -42,6 +49,9 @@ var yourPlayer = {
         var playerMagicTable = new MagicTable(playersElem, width, height, 4);
         var playerRenderer = new PlayerRenderer([yourPlayer], gameTimer, camera, playerMagicTable);
 
+        
+
+        
 //        var backgroundRenderer = new BackgroundRenderer(gameTimer, camera, playerCanvas);
         
         gameTimer.start();
