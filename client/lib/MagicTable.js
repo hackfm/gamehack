@@ -1,16 +1,19 @@
 var MagicTable = function(element, width, height, pxSize) {
+	console.log(width)
+	console.log(height)
 	var jqElement = $(element);
-	var jqTable = $("<table />");
-	jqTable.addClass("magicTable");
-	jqTable.attr("id", jqElement.attr("id"));
-	jqElement.replaceWith(jqTable);
+	this.jqTable = $("<table />");
+	this.jqTable.attr('height', height*pxSize);
+	this.jqTable.attr('width', width*pxSize);
+	this.jqTable.addClass("magicTable");
+	jqElement.append(this.jqTable);
 	this.elementArray = [];
 	this.width=width;
 	this.height=height;
 	for (var y=0;y<height;y++) {
 		var rowArray = [];
 		var row = $(document.createElement("tr"));
-		jqTable.append(row);
+		this.jqTable.append(row);
 		for (var x=0; x<width; x++) {
 			var cell = $(document.createElement("td"));
 			cell.addClass("magicTable");
@@ -39,3 +42,7 @@ MagicTable.prototype.setPixel = function(x,y,rgba) {
 		//console.log('out')
 	}
 };
+
+MagicTable.prototype.getElem = function() {
+	return this.jqTable;
+}

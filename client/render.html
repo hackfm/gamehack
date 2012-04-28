@@ -8,6 +8,7 @@
         <script src="lib/server.js"></script>
         <script src="lib/MagicCanvas.js"></script>
         <script src="lib/MagicTable.js"></script>
+        <script src="lib/Map.js"></script>
         <script src="game/player.js"></script>
         <script src="game/camera.js"></script>
         <script src="game/game-timer.js"></script>
@@ -17,12 +18,32 @@
         <script src="game/game.js"></script>
     </head>
     <style>
+        #game {
+            position: relative;
+            border: 1px solid;   
+            float: left;         
+        }
+
         #players {
-            border: 1px solid;
+            float: left;
+        }
+
+        #background table {
+            border: 1px solid #ff0;
+            position: absolute;
+            left: 0;
+        }
+
+        .magicTable {
+            border: none;
+            border-spacing: 0;
         }
     </style>
     <body>
-        <div id="players"></div>
-        <div id="background"></div>
+        <div id="game">
+            <div id="players"></div>
+            <div id="scenery"></div>
+            <div id="background"></div>
+        </div>
     </body>
 </html>

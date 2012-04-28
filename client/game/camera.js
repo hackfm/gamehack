@@ -1,7 +1,8 @@
-var Camera = function(height, gameTimer, subjectPlayer) {
+var Camera = function(width, height, gameTimer, subjectPlayer) {
     var camera = {}
     camera.y0 = 0;
     camera.y1 = height;
+    camera.width = width;
     camera.height = height;
 
     var top = Math.round(height / 3) * 2;
