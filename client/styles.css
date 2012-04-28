@@ -1,0 +1,30 @@
+#players,
+#background,
+#scenery {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#game {
+    position: relative;
+    border: 1px solid;   
+    float: left;         
+}
+
+#players {
+    float: left;
+}
+
+#background table {
+    border: 1px solid #ff0;
+    position: absolute;
+    left: 0;
+}
+
+.magicTable {
+    border: none;
+    border-spacing: 0;
+    padding: 0;
+    margin: 0;
+}
