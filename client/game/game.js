@@ -21,24 +21,32 @@ var yourPlayer = {
 (function($) {
     $(document).ready(function() {
 
+        var width = 48;
+        var height = 57;
+
         var gameTimer = new GameTimer(3);
 
+<<<<<<< HEAD
         var server = new Server();
         server.onGametime(function(gTime) {
             gameTimer.setGameTime(gTime);
             console.log(gameTimer.getGameTime());
         });
+=======
+        var yourPlayer = new Player(function(){return ""}, width);
+>>>>>>> ad3d39db75640cee57eb4b234047bac3c2f75f90
 
         var camera = new Camera(57, gameTimer, yourPlayer);
 
         var playersElem = $("#players")[0];
-        var playerMagicCanvas = new MagicCanvas(playersElem, 48, 57);
-        //var playerMagicTable = new MagicTable(playersElem, 48, 57, 4);
-        var playerRenderer = new PlayerRenderer([yourPlayer], gameTimer, camera, playerMagicCanvas);
+        //var playerMagicCanvas = new MagicCanvas(playersElem, width, height);
+        var playerMagicTable = new MagicTable(playersElem, width, height, 4);
+        var playerRenderer = new PlayerRenderer([yourPlayer], gameTimer, camera, playerMagicTable);
 
 //        var backgroundRenderer = new BackgroundRenderer(gameTimer, camera, playerCanvas);
         
         gameTimer.start();
+        yourPlayer.addEvent({t: gameTimer.gameTime, x: 0, y: 0, v: 5, dx: 0});
         
     })
 })(jQuery);
