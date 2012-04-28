@@ -65,8 +65,8 @@ Player.prototype.getXValues = function (y0, y1, t) {
             if (y>=y0 && y<=y1)
             {
                 xvalues[y-y0] = x;
-                x+=dx;
             }
+            x+=dx;
         }
     }
 
@@ -78,8 +78,6 @@ Player.prototype.addEvent = function (event) {
 }
 
 Player.prototype.createEvent = function(t, action) {
-    console.log(t)
-    console.log(action)
     var event = this.getPosition(t);
     var dx = 0;
     

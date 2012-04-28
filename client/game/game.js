@@ -54,37 +54,13 @@ var yourPlayer;
                 
         yourPlayer.addEvent({t: gameTimer.getGameTime(), x: Math.round(camera.width/2), y: 0, v: 10, dx: 0});
 
-//        var controls = new Controls(yourPlayer, gameTimer);
+        var controls = new Controls(yourPlayer, gameTimer);
 
         // Start the timer!
         gameTimer.start();
 
         // Initiate your player with the current gametime, position and stuff
         yourPlayer.addEvent({t: gameTimer.getGameTime(), x: Math.round(camera.width/2), y: 0, v: 20, dx: 0});
-        
-        // Fake controls!
-        var KEY_LEFT = 37;
-        var KEY_RIGHT = 39;
-        var lastKey = 0;
-
-        $('body').keydown(function(e) {
-            if (lastKey == e.keyCode) {
-                return;
-            }
-
-            lastKey = e.keyCode;
-            if (e.keyCode == KEY_LEFT) {
-                yourPlayer.createEvent(gameTimer.getGameTime(), 'left');
-                console.log(gameTimer.getGameTime(), 'left', yourPlayer);
-            }
-            if (e.keyCode == KEY_RIGHT) {
-                yourPlayer.createEvent(gameTimer.getGameTime(), 'right');
-            }
-        }).keyup(function(e) {
-            yourPlayer.createEvent(gameTimer.getGameTime(), 'straight');
-            lastKey = 0;
-        });
-
 
 
     })
