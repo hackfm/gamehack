@@ -1,7 +1,7 @@
 class PlayerList 
     constructor: (@thisPlayer, @server, @map) ->
         # Make it pseudo unique
-        @id = Math.floor Math.rand() * 10000000
+        @id = Math.floor Math.random() * 10000000
 
         @players = {}
         @players[@id] = @thisPlayer
@@ -28,4 +28,10 @@ class PlayerList
     you: () =>
         return @thisPlayer
 
+    otherPlayers: () =>
+        list = []
+        for player in @players
+            do (player, list) ->
+                list.push player unless @thisPlayer is player
+        return list
 

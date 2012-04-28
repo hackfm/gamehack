@@ -10,13 +10,15 @@ PlayerList = (function() {
     this.thisPlayer = thisPlayer;
     this.server = server;
     this.map = map;
+    this.otherPlayers = __bind(this.otherPlayers, this);
+
     this.you = __bind(this.you, this);
 
     this.removePlayer = __bind(this.removePlayer, this);
 
     this.updatePlayer = __bind(this.updatePlayer, this);
 
-    this.id = Math.floor(Math.rand() * 10000000);
+    this.id = Math.floor(Math.random() * 10000000);
     this.players = {};
     this.players[this.id] = this.thisPlayer;
   }
@@ -37,6 +39,22 @@ PlayerList = (function() {
 
   PlayerList.prototype.you = function() {
     return this.thisPlayer;
+  };
+
+  PlayerList.prototype.otherPlayers = function() {
+    var list, player, _fn, _i, _len, _ref;
+    list = [];
+    _ref = this.players;
+    _fn = function(player, list) {
+      if (this.thisPlayer !== player) {
+        return list.push(player);
+      }
+    };
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      player = _ref[_i];
+      _fn(player, list);
+    }
+    return list;
   };
 
   return PlayerList;

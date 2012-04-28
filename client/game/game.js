@@ -64,7 +64,7 @@ var yourPlayer = {
         var playerMagicTable = new MagicTable($("#players")[0], width, height, 4);
 
         // The PlayerRenderer draws the players
-        var playerRenderer = new PlayerRenderer([yourPlayer], gameTimer, camera, playerMagicTable);
+        var playerRenderer = new PlayerRenderer(playerList, gameTimer, camera, playerMagicTable);
 
         // Fancy background!
         //var backgroundRenderer = new BackgroundRenderer(gameTimer, camera, playerCanvas);
