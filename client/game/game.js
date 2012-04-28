@@ -26,15 +26,14 @@ var yourPlayer = {
 
         var gameTimer = new GameTimer(3);
 
-<<<<<<< HEAD
+
         var server = new Server();
         server.onGametime(function(gTime) {
             gameTimer.setGameTime(gTime);
             console.log(gameTimer.getGameTime());
         });
-=======
+
         var yourPlayer = new Player(function(){return ""}, width);
->>>>>>> ad3d39db75640cee57eb4b234047bac3c2f75f90
 
         var camera = new Camera(57, gameTimer, yourPlayer);
 
