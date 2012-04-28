@@ -3,14 +3,14 @@ var yourPlayer;
 (function($) {
     $(document).ready(function() {
 
-        var width = 48;
-        var height = 57;
-        var pixelSize = 8;
-        
         // This objects connects to the server. That's pretty important, huh?!
+<<<<<<< HEAD
+        var gameTimer = new GameTimer(30);
+        
+        
+=======
         var gameTimer = new GameTimer(3);
-        
-        
+>>>>>>> 671c9b59d334b9441fe24c10d4891cf49d72f740
 
         // This object communicates with the server
         var server = new FakeServer();
@@ -21,65 +21,75 @@ var yourPlayer;
             console.log("Gametime:",gameTimer.getGameTime());
         });
 
+        // Width, Height, Pixel size
+        var camera = new Camera(48, 57, 8, gameTimer);
+
 
         // Scenery is awesome! Let's draw it
-        var sceneryMagicTable = new MagicTable($("#scenery")[0], width, height, pixelSize);
+        var sceneryMagicTable = new MagicTable($("#scenery")[0], camera.width, camera.height, camera.pixelSize);
 
         // Map are drawn in the scenery Table and they talk to the server.
         var map = new Map(server, sceneryMagicTable);
-        map.drawArea(0);
+        /*map.drawArea(0);
 
         var offset = 0;
         setInterval(function() {
             map.drawArea(offset++);
-        }, 100);
+        }, 1000);*/
         
         // Replace this later with map or some function. Ask sven
         var fakeMap = function(){return ""};
 
-        // The last layer is the background. 
-        var backgroundMagicTable = new MagicTable($("#background")[0], width, height, pixelSize);
 
         // This is you! Yeah!
-        var yourPlayer = new Player(fakeMap, width);
-
+        var yourPlayer = new Player(fakeMap, camera.width);
+        camera.setFocusPlayer(yourPlayer);
+        
         // We store all players in a dedicated list
-        var playerList = new PlayerList(yourPlayer, server, fakeMap);
-
-
-        var camera = new Camera(width, height, gameTimer, yourPlayer);
+        var playerList = new PlayerList(yourPlayer, server, fakeMap);        
 
 
         //var playerMagic = new MagicCanvas(playersElem, width, height);
-        var playerMagicTable = new MagicTable($("#players")[0], width, height, pixelSize);
+        var playerMagicTable = new MagicTable($("#players")[0], camera.width, camera.height, camera.pixelSize);
         var playerRenderer = new PlayerRenderer(playerList, gameTimer, camera, playerMagicTable);
 
-        var backgroundElem = $("#players")[0];
+        var backgroundElem = $("#background")[0];
         //var backgroundRenderer = new BackgroundRenderer(gameTimer, camera, backgroundElem);
 
-        // Fancy background!
-        //var backgroundRenderer = new BackgroundRenderer(gameTimer, camera, playerCanvas);
                 
-        gameTimer.start();
-        yourPlayer.addEvent({t: gameTimer.getGameTime(), x: Math.round(width/2), y: 0, v: 10, dx: 0});
+        yourPlayer.addEvent({t: gameTimer.getGameTime(), x: Math.round(camera.width/2), y: 0, v: 10, dx: 0});
 
+<<<<<<< HEAD
+=======
         // Start the timer!
         gameTimer.start();
 
         // Initiate your player with the current gametime, position and stuff
-        yourPlayer.addEvent({t: gameTimer.getGameTime(), x: Math.round(width/2), y: 0, v: 20, dx: 0});
+        yourPlayer.addEvent({t: gameTimer.getGameTime(), x: Math.round(camera.width/2), y: 0, v: 20, dx: 0});
         
+>>>>>>> 671c9b59d334b9441fe24c10d4891cf49d72f740
         // Fake controls!
-        var fakeControls = setInterval(function() {
-            var action;
-            var ran = Math.random();
-            if (ran > 0.6) {
-                action = 'right'
-            } else if (ran > 0.3) {
-                action = 'left';
+        var KEY_LEFT = 37;
+        var KEY_RIGHT = 39;
+        var lastKey = 0;
+
+        $('body').keydown(function(e) {
+            if (lastKey == e.keyCode) {
+                return;
             }
-            yourPlayer.createEvent(gameTimer.getGameTime(), action);        
-        }, 1000)
+            lastKey = e.keyCode;
+            if (e.keyCode == KEY_LEFT) {
+                yourPlayer.createEvent(gameTimer.getGameTime(), 'left');
+                console.log(gameTimer.getGameTime(), 'left', yourPlayer);
+            }
+            if (e.keyCode == KEY_RIGHT) {
+                yourPlayer.createEvent(gameTimer.getGameTime(), 'right');
+            }
+        }).keyup(function(e) {
+            yourPlayer.createEvent(gameTimer.getGameTime(), 'straight');
+            lastKey = 0;
+        });
+       
 
     })
 })(jQuery);
