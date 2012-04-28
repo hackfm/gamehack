@@ -65,14 +65,14 @@ Level.prototype.getMap = function(number, length, width)
                 continue;
             }
 
-            var x0 = (width * x / 4)|0;
-            var x1 = (width * (x+1) /4)|0;
+            var w =(width*0.25)|0;
+            var x0 = mt.extract_number() % (width-w);
 
-            for (var xx=x0; xx<x1; ++xx)
+            for (var xx=w; xx<width; ++xx)
             {
                 for (var yy=0; yy<5; ++yy)
                 {
-                    field[y+yy][xx] = c;
+                    field[y+yy][(xx+x0)%width] = c;
                 }
             }
         }
