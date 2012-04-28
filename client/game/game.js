@@ -3,10 +3,10 @@ var yourPlayer;
 (function($) {
     $(document).ready(function() {
 
-        var globalSpeed = 10;
+        var globalSpeed = 30;
 
         // This objects connects to the server. That's pretty important, huh?!
-        var gameTimer = new GameTimer(3);
+        var gameTimer = new GameTimer(30);
 
         // This object communicates with the server
         var server = new FakeServer();
