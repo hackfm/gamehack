@@ -65,8 +65,8 @@ Player.prototype.getXValues = function (y0, y1, t) {
             if (y>=y0 && y<=y1)
             {
                 xvalues[y-y0] = x;
-                x+=dx;
             }
+            x+=dx;
         }
     }
 
