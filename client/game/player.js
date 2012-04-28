@@ -64,7 +64,7 @@ Player.prototype.getXValues = function (y0, y1, t) {
         {
             if (y>=y0 && y<=y1)
             {
-                xvalues[y-y0] = x;
+                xvalues[y-y0] = Math.max(0, Math.min(x, this.width-1));
             }
             x+=dx;
         }
@@ -182,6 +182,17 @@ Player.prototype.getPosition = function(t) {
         }
         vy = v * velocity_factor[Math.abs(dx)];
         T = inc/vy/this.speed;
+    }
+
+    if (x<0)
+    {
+        x=0;
+        dx=0;
+    }
+    else if (x>=this.width)
+    {
+        x=this.width-1;
+        dx=0;
     }
 
     return {x:x, y:y, t:now, v:v, dx:dx, obstacle:obstacle};
