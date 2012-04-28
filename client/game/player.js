@@ -78,9 +78,7 @@ Player.prototype.addEvent = function (event) {
 
 Player.prototype.createEvent = function(t, action) {
     var event = this.getPosition(t);
-
-    event.dx = 0;
-    event.v = Math.min(event.v / 1.1, 1.0);
+    var dx = 0;
     
     if (!event.obstacle)
     {
@@ -88,12 +86,23 @@ Player.prototype.createEvent = function(t, action) {
         {
             event.dx = -1;
         }
-        if (action==="right")
+        else if (action==="right")
         {
             event.dx = 1;
         }
+        if (event.dx !== dx)
+        {
+            event.dx = dx;
+            event.v = Math.max(Math.min(event.v / 1.1, 1.0), 0.2);
+        }
+    }
+    else
+    {
+        event.dx = 0;
+        event.v = 0;
     }
     
+
     this.addEvent(event);
     return event;
 }
