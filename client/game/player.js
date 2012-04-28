@@ -77,6 +77,8 @@ Player.prototype.addEvent = function (event) {
 }
 
 Player.prototype.createEvent = function(t, action) {
+    console.log(t)
+    console.log(action)
     var event = this.getPosition(t);
     var dx = 0;
     

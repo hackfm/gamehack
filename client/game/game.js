@@ -53,12 +53,14 @@ var yourPlayer;
                 
         yourPlayer.addEvent({t: gameTimer.getGameTime(), x: Math.round(camera.width/2), y: 0, v: 10, dx: 0});
 
+        var controls = new Controls(yourPlayer, gameTimer);
+
         // Start the timer!
         gameTimer.start();
 
         // Initiate your player with the current gametime, position and stuff
         yourPlayer.addEvent({t: gameTimer.getGameTime(), x: Math.round(camera.width/2), y: 0, v: 20, dx: 0});
-        
+        /*
         // Fake controls!
         var fakeControls = setInterval(function() {
             var action;
@@ -69,7 +71,7 @@ var yourPlayer;
                 action = 'left';
             }
             yourPlayer.createEvent(gameTimer.getGameTime(), action);        
-        }, 1000)
+        }, 1000)*/
 
     })
 })(jQuery);
