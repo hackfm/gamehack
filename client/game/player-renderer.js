@@ -16,8 +16,8 @@ var PlayerRenderer = function(players, gameTimer, camera, magic) {
             draw(lineSegments);
         });
 
-        if (magic.render) {
-            magic.render();    
+        if (magic.draw) {
+            magic.draw();    
         }
     }    
 

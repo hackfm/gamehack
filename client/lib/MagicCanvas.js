@@ -10,20 +10,22 @@ var MagicCanvas = function(element, width, height, pxSize) {
     var context = canvas.getContext("2d");
     var imageData = context.createImageData(width, height);
 
+
+
     magicCanvas.clear = function() {
         context.clearRect(0, 0, width, height);
     }    
 
     magicCanvas.setPixel = function(x, y, rgba) {
-        index = (x + y * imageData.width) * 4;
+        var index = (x + y * width) * 4;
         imageData.data[index+0] = rgba[0];
         imageData.data[index+1] = rgba[1];
         imageData.data[index+2] = rgba[2];
-        imageData.data[index+3] = rgba[3];
+        imageData.data[index+3] = Math.round(rgba[3]*255);
     }
 
     magicCanvas.draw = function() {
-        ccanvas.putImageData(imageData, 0, 0);
+        context.putImageData(imageData, 0, 0);
     }
 
     return magicCanvas;
