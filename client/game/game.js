@@ -24,9 +24,9 @@ var yourPlayer = {
         var width = 48;
         var height = 57;
 
-        var gameTimer = new GameTimer(3);
-
         // This objects connects to the server. That's pretty important, huh?!
+        var gameTimer = new GameTimer(30);
+        
         var server = new FakeServer();
         server.onGametime(function(gTime) {
             gameTimer.setGameTime(gTime);
@@ -55,7 +55,18 @@ var yourPlayer = {
 //        var backgroundRenderer = new BackgroundRenderer(gameTimer, camera, playerCanvas);
         
         gameTimer.start();
-        yourPlayer.addEvent({t: gameTimer.gameTime, x: 0, y: 0, v: 5, dx: 0});
+        yourPlayer.addEvent({t: gameTimer.getGameTime(), x: Math.round(width/2), y: 0, v: 20, dx: 0});
         
+        var fakeControls = setInterval(function() {
+            var action;
+            var ran = Math.random();
+            if (ran > 0.6) {
+                action = 'right'
+            } else if (ran > 0.3) {
+                action = 'left';
+            }
+            yourPlayer.createEvent(gameTimer.getGameTime(), action);        
+        }, 500)
+
     })
 })(jQuery);

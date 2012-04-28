@@ -31,6 +31,10 @@ MagicTable.prototype.clear = function() {
 }
 
 MagicTable.prototype.setPixel = function(x,y,rgba) {
-	var col = "rgba("+rgba[0].toString()+","+rgba[1].toString()+","+rgba[2].toString()+","+rgba[3].toString()+")";
-	this.elementArray[y][x].css("background-color",col);
+	if (x >= 0 && x < this.width && y >= 0 && y < this.height) {
+		var col = "rgba("+rgba[0].toString()+","+rgba[1].toString()+","+rgba[2].toString()+","+rgba[3].toString()+")";
+		this.elementArray[y][x].css("background-color",col);		
+	} else {
+		console.log('out')
+	}
 };

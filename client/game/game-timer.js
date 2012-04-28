@@ -7,9 +7,8 @@ var GameTimer = function(fps) {
     gameTimer.zeroGameTime = null;
 
     var update = function() {
-
         subscribers.forEach(function(subscriber) {
-            subscriber(gameTimer.gameTime);
+            subscriber(gameTimer.getGameTime());
         });
     }
 
