@@ -1,19 +1,21 @@
 var Controls = function(player, gameTimer) {
     
+    var KEY_LEFT = 37;
+    var KEY_RIGHT = 39;
+
+
     var leftPressed = false;
     var rightPressed = false;
 
     var keyDownHandler = function(evt) {
         switch(evt.keyCode) {
-            case 37:
-                // left
+            case KEY_LEFT:
                 if (!leftPressed) {
                     leftPressed = true;
                     player.createEvent(gameTimer.getGameTime(), 'left');                    
                 }
                 break;
-            case 39:
-                // right
+            case KEY_RIGHT:
                 if (!rightPressed) {  
                     rightPressed = true;
                     player.createEvent(gameTimer.getGameTime(), 'right');
@@ -24,15 +26,13 @@ var Controls = function(player, gameTimer) {
 
     var keyUpHandler = function(evt) {
         switch(evt.keyCode) {
-            case 37:
-                // left
+            case KEY_LEFT:
                 if (leftPressed) {
                     leftPressed = false;
                     player.createEvent(gameTimer.getGameTime());
                 }                    
                 break;
-            case 39:
-                // right
+            case KEY_RIGHT:
                 if (rightPressed) {
                     rightPressed = false;
                     player.createEvent(gameTimer.getGameTime());                    
