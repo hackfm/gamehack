@@ -5,7 +5,8 @@ var yourPlayer;
 
         var width = 48;
         var height = 57;
-
+        var pixelSize = 8;
+        
         // This objects connects to the server. That's pretty important, huh?!
         var gameTimer = new GameTimer(3);
         
@@ -22,7 +23,7 @@ var yourPlayer;
 
 
         // Scenery is awesome! Let's draw it
-        var sceneryMagicTable = new MagicTable($("#scenery")[0], width, height, 4);
+        var sceneryMagicTable = new MagicTable($("#scenery")[0], width, height, pixelSize);
 
         // Map are drawn in the scenery Table and they talk to the server.
         var map = new Map(server, sceneryMagicTable);
@@ -37,7 +38,7 @@ var yourPlayer;
         var fakeMap = function(){return ""};
 
         // The last layer is the background. 
-        var backgroundMagicTable = new MagicTable($("#background")[0], width, height, 4);
+        var backgroundMagicTable = new MagicTable($("#background")[0], width, height, pixelSize);
 
         // This is you! Yeah!
         var yourPlayer = new Player(fakeMap, width);
@@ -50,7 +51,7 @@ var yourPlayer;
 
 
         //var playerMagic = new MagicCanvas(playersElem, width, height);
-        var playerMagicTable = new MagicTable($("#players")[0], width, height, 4);
+        var playerMagicTable = new MagicTable($("#players")[0], width, height, pixelSize);
         var playerRenderer = new PlayerRenderer(playerList, gameTimer, camera, playerMagicTable);
 
         var backgroundElem = $("#players")[0];

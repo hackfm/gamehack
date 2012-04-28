@@ -35,7 +35,7 @@ var i = 0;
         var firstBlock = activeBlocks[0];
         if (!firstBlock || firstBlock.y0 > y0) {
             console.log('addfirst')
-            var magic = new MagicTable(container, camera.width, blockHeight, 4);
+            var magic = new MagicTable(container, camera.width, blockHeight, pixelSize);
             activeBlocks.unshift({
                 elem: magic.getElem(),
                 index: firstBlock ? firstBlock.index - 1 : 0,
@@ -46,7 +46,7 @@ var i = 0;
         var lastBlock = activeBlocks[activeBlocks.length-1];
         if (!lastBlock || lastBlock.y1 < y1) {
             console.log('addlast')
-            var magic = new MagicTable(container, camera.width, blockHeight, 4);
+            var magic = new MagicTable(container, camera.width, blockHeight, pixelSize);
             activeBlocks.push({
                 elem: magic.getElem(),
                 index: lastBlock ? lastBlock.index + 1 : 0, 
