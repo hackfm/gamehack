@@ -39,6 +39,10 @@ var yourPlayer = {
 
         // Map are drawn in the scenery Table and they talk to the server.
         var map = new Map(server, sceneryMagicTable);
+        map.drawArea(0);
+
+        // The last layer is the background. 
+        var backgroundMagicTable = new MagicTable($("#background")[0], width, height, 4);
 
         var yourPlayer = new Player(function(){return ""}, width);
 
