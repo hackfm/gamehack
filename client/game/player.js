@@ -166,17 +166,17 @@ Player.prototype.getPosition = function(t) {
 
         var tile = this.map(x, y);
 
-        if (tile === "obstacle")
+        if (tile === "X" || tile === "O")
         {
             obstacle = true;
             break;
         }
-        if (tile === "speedup")
+        if (tile === "+")
         {
             v *= 1.1;
             score += 500;
         }
-        else if (tile === "slowdown")
+        else if (tile === "-")
         {
             v /= 1.1;
         }
