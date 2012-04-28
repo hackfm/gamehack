@@ -26,6 +26,13 @@ var yourPlayer = {
 
         var gameTimer = new GameTimer(30);
 
+
+        var server = new Server();
+        server.onGametime(function(gTime) {
+            gameTimer.setGameTime(gTime);
+            console.log(gameTimer.getGameTime());
+        });
+
         var yourPlayer = new Player(function(){return ""}, width);
 
         var camera = new Camera(57, gameTimer, yourPlayer);
