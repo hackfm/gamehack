@@ -74,6 +74,7 @@ Player.prototype.getXValues = function (y0, y1, t) {
 }
 
 Player.prototype.addEvent = function (event) {
+    event.score = event.score || 0;
     this.events.push(event);
 }
 
@@ -148,6 +149,7 @@ Player.prototype.getPosition = function(t) {
     var vy = v * velocity_factor[Math.abs(dx)];
     var T = inc/vy/this.speed; // time needed for travelling one pixel in y-direction
     var obstacle = false;
+    var score = event.score;
 
     while(true)
     {
@@ -157,6 +159,7 @@ Player.prototype.getPosition = function(t) {
             break;
         }
         now = next;
+        score += Math.pow(v*3, 2) |0;
         y += inc;
         x += dx;
         v = Math.min(v+2*a*T, 3.0);
@@ -171,6 +174,7 @@ Player.prototype.getPosition = function(t) {
         if (tile === "speedup")
         {
             v *= 1.1;
+            score += 500;
         }
         else if (tile === "slowdown")
         {
@@ -195,7 +199,7 @@ Player.prototype.getPosition = function(t) {
         dx=0;
     }
 
-    return {x:x, y:y, t:now, v:v, dx:dx, obstacle:obstacle};
+    return {x:x, y:y, t:now, v:v, dx:dx, obstacle:obstacle, score:score};
 }
 
 if ((typeof(module) != "undefined"))
