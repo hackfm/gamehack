@@ -6,15 +6,13 @@ var PlayerRenderer = function(players, gameTimer, camera, magic) {
         var lineSegments = player.getLineSegments(ys.y0, ys.y1, gameTime);
         var segments = lineSegments.length;
         for (var i = 0; i < segments; i++) {
-            // console.log(camera.getCenter())
-            magic.setPixel(lineSegments[i].x1, lineSegments[i].y1, [0, 0, 0, 1])
+            var ps = player.getPosition(gameTime);
+            magic.setPixel(lineSegments[i].x1, camera.getCenter() - lineSegments[i].y1, [0, 0, 0, 1])
         }
     }
 
     var drawXValues = function(player, gameTime) {
         var ys = camera.getYs();
-        //console.log(player.getPosition(gameTime))
-        //console.log(ys.y0+", "+ys.y1)
         var xValues = player.getXValues(ys.y0, ys.y1, gameTime);
         
         var len = xValues.length;
@@ -26,9 +24,9 @@ var PlayerRenderer = function(players, gameTimer, camera, magic) {
     }
 
     var drawDot = function(player, gameTime) {
-        var position = player.getPosition(gameTime)
+        var position = player.getPosition(gameTime);
         var ys = camera.getYs();
-        var y = position.y - ys.y0;
+        var y = camera.height - (position.y - ys.y0);
         magic.setPixel(position.x, y, [255, 0, 0, 1])
     }
 

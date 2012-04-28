@@ -9,8 +9,9 @@ var Camera = function(height, gameTimer, subjectPlayer) {
 
     camera.update = function(gameTime) {
         var position = subjectPlayer.getPosition(gameTime);
-        camera.y0 = position.y - bottom; // start (bottom of screen)
-        camera.y1 = position.y + top; // end (top of screen)
+        // THIS IS BACKWARDS? I think we have some crossed wires with player.js
+        camera.y0 = position.y - top; // start (bottom of screen)
+        camera.y1 = position.y + bottom; // end (top of screen)
     }
 
     camera.getYs = function() {
@@ -21,7 +22,7 @@ var Camera = function(height, gameTimer, subjectPlayer) {
     }
 
     camera.getCenter = function() {
-        return camera.y1 - top;
+        return camera.y1 - bottom;
     }
 
 
