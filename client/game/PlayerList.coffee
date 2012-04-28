@@ -1,5 +1,5 @@
 class PlayerList 
-    constructor: (@thisPlayer, @server, @map) ->
+    constructor: (@thisPlayer, @server, @map, @globalSpeed) ->
         # Make it pseudo unique
         @id = Math.floor Math.random() * 10000000
 
@@ -15,7 +15,7 @@ class PlayerList
             @players[data.id].add data
         else
             # let's create a new player
-            player = new Player @map, 48
+            player = new Player @map, 48, @globalSpeed
             player.add data
             @players[data.id] = player
 
