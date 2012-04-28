@@ -69,7 +69,7 @@ FakeServer = (function() {
   }
 
   FakeServer.prototype.onGametime = function(callbackOnGametime) {
-    return callbackOnGametime(data.gametime);
+    return callbackOnGametime(10);
   };
 
   FakeServer.prototype.onMapSegment = function(callbackOnMapSegment) {
