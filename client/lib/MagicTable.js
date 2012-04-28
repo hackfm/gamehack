@@ -1,6 +1,4 @@
 var MagicTable = function(element, width, height, pxSize) {
-	console.log(width)
-	console.log(height)
 	var jqElement = $(element);
 	this.jqTable = $("<table />");
 	this.jqTable.attr('height', height*pxSize);

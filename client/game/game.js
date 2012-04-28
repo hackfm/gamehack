@@ -3,14 +3,10 @@ var yourPlayer;
 (function($) {
     $(document).ready(function() {
 
+        var globalSpeed = 5;
+
         // This objects connects to the server. That's pretty important, huh?!
-<<<<<<< HEAD
-        var gameTimer = new GameTimer(30);
-        
-        
-=======
         var gameTimer = new GameTimer(3);
->>>>>>> 671c9b59d334b9441fe24c10d4891cf49d72f740
 
         // This object communicates with the server
         var server = new FakeServer();
@@ -26,7 +22,7 @@ var yourPlayer;
 
 
         // Scenery is awesome! Let's draw it
-        var sceneryMagicTable = new MagicTable($("#scenery")[0], camera.width, camera.height, camera.pixelSize);
+        var sceneryMagicTable = new MagicTable($("#scenery")[0], camera.width, camera.height, camera.pixelSize, globalSpeed);
 
         // Map are drawn in the scenery Table and they talk to the server.
         var map = new Map(server, sceneryMagicTable);
@@ -59,15 +55,14 @@ var yourPlayer;
                 
         yourPlayer.addEvent({t: gameTimer.getGameTime(), x: Math.round(camera.width/2), y: 0, v: 10, dx: 0});
 
-<<<<<<< HEAD
-=======
+//        var controls = new Controls(yourPlayer, gameTimer);
+
         // Start the timer!
         gameTimer.start();
 
         // Initiate your player with the current gametime, position and stuff
         yourPlayer.addEvent({t: gameTimer.getGameTime(), x: Math.round(camera.width/2), y: 0, v: 20, dx: 0});
         
->>>>>>> 671c9b59d334b9441fe24c10d4891cf49d72f740
         // Fake controls!
         var KEY_LEFT = 37;
         var KEY_RIGHT = 39;
@@ -77,6 +72,7 @@ var yourPlayer;
             if (lastKey == e.keyCode) {
                 return;
             }
+
             lastKey = e.keyCode;
             if (e.keyCode == KEY_LEFT) {
                 yourPlayer.createEvent(gameTimer.getGameTime(), 'left');
@@ -89,7 +85,8 @@ var yourPlayer;
             yourPlayer.createEvent(gameTimer.getGameTime(), 'straight');
             lastKey = 0;
         });
-       
+
+
 
     })
 })(jQuery);
