@@ -23,16 +23,20 @@ var yourPlayer = {
 
         var gameTimer = new GameTimer(3);
 
+        var yourPlayer = new Player(function(){return ""}, 100);
+
         var camera = new Camera(57, gameTimer, yourPlayer);
 
         var playersElem = $("#players")[0];
-        var playerMagicCanvas = new MagicCanvas(playersElem, 48, 57);
-        //var playerMagicTable = new MagicTable(playersElem, 48, 57, 4);
-        var playerRenderer = new PlayerRenderer([yourPlayer], gameTimer, camera, playerMagicCanvas);
+        //var playerMagicCanvas = new MagicCanvas(playersElem, 48, 57);
+        var playerMagicTable = new MagicTable(playersElem, 48, 57, 4);
+        var playerRenderer = new PlayerRenderer([yourPlayer], gameTimer, camera, playerMagicTable);
 
 //        var backgroundRenderer = new BackgroundRenderer(gameTimer, camera, playerCanvas);
         
         gameTimer.start();
+        console.log(gameTimer.gameTime)
+        yourPlayer.addEvent({t: gameTimer.gameTime, x: 0, y: 0, v: 1, dx: 0});
         
     })
 })(jQuery);

@@ -10,7 +10,8 @@ var GameTimer = function(fps) {
     var update = function() {
         var now = new Date();
         var currentTime = now.getTime();
-        gameTimer.gameTime = currentTime - this.startTime
+
+        gameTimer.gameTime = (currentTime - gameTimer.startTime) / 1000;
         subscribers.forEach(function(subscriber) {
             subscriber(gameTimer.gameTime);
         });
@@ -27,7 +28,7 @@ var GameTimer = function(fps) {
 
         var startDate = new Date()
         gameTimer.startTime = startDate.getTime();
-        gameTimer.gameTime = gameTimer.startTime;
+        gameTimer.gameTime = 0;
     }
 
     return gameTimer;

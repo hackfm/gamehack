@@ -4,7 +4,7 @@ var PlayerRenderer = function(players, gameTimer, camera, magic) {
     var draw = function(lineSegments) {
         var segments = lineSegments.length;
         for (var i = 0; i < segments; i++) {
-            magic.setPixel(lineSegments[i].x, lineSegments[i].y, [0, 0, 0, 1])
+            magic.setPixel(lineSegments[i].x1, lineSegments[i].y1, [0, 0, 0, 1])
         }
     }
 
