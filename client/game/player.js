@@ -73,7 +73,6 @@ Player.prototype.getXValues = function (y0, y1, t) {
 }
 
 Player.prototype.addEvent = function (event) {
-    console.log(event)
     this.events.push(event);
 }
 
@@ -174,8 +173,8 @@ Player.prototype.getPosition = function(t) {
 
     return {x:x, y:y, t:now, v:v, dx:dx, obstacle:obstacle};
 }
-/*
-if (module)
+
+if ((typeof(module) != "undefined"))
 {
     module.exports=Player;
-}*/
+}
