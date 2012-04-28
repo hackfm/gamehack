@@ -8,8 +8,11 @@
             position: relative;        
         }   
 
-        #players table, #scenery table{
+        #players table, #scenery table, #background table {
             border: 1px solid red;
+            position: absolute;
+            top: 1px;
+            left: 1px;
         }
     </style>
 
@@ -21,6 +24,7 @@
     <script src="/lib/MagicTable.js"></script>
     <script src="/game/camera.js"></script>
     <script src="/game/game-timer.js"></script>
+    <script src="/game/PlayerList.js"></script>
     <script src="/game/player.js"></script>
     <script src="/lib/Map.js"></script>
     <script src="/game/player-renderer.js"></script>
@@ -28,12 +32,9 @@
     <script src="/game/game.js"></script>
 
 </head>
-<body>
-    
-    <div id="players"></div>
-    <div id="scenery"></div>
+<body> 
     <div id="background"></div>
-    
-
+    <div id="scenery"></div>
+    <div id="players"></div>
 </body>
 </html>

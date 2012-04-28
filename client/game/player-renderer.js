@@ -34,7 +34,10 @@ var PlayerRenderer = function(players, gameTimer, camera, magic) {
 
         magic.clear();
 
-        players.forEach(function(player) {
+        playersSorted = players.otherPlayers();
+        playersSorted.push(players.you());
+
+        playersSorted.forEach(function(player) {
             //drawPoints(player, gameTime);
             drawXValues(player, gameTime);
             drawDot(player, gameTime);

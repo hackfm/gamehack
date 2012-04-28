@@ -44,6 +44,10 @@ MersenneTwister.prototype.extract_number = function() {
     return y;
 };
 
+MersenneTwister.prototype.extract_float = function() {
+    return (this.extract_number() & 0x7fffffff)/2147483648;
+}
+
 // Generate an array of 624 untempered numbers
 MersenneTwister.prototype.generate_numbers = function() {
     var mt = this._mt;

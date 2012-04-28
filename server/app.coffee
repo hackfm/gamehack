@@ -74,11 +74,13 @@ io.sockets.on 'connection', (socket) =>
     # send gametime
     socket.emit 'gametime', { gametime: (new Date().getTime()/1000) - gameTimeZero }
 
+    ###
     # map tiles might be requested
     socket.on 'sendMapSegment', (num) =>
         data = mapHelper.getMapTile SEED, num
         console.log 'map', num, data
         socket.emit 'mapSegment', data
+    ###
 
 
 
