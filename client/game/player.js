@@ -3,11 +3,12 @@ var velocity_factor = [
     0.7071067811865476
     ];
 
-var Player = function(map, width, speed) {
+var Player = function(map, width, speed, eventcallback) {
     this.map = map;
     this.width = width;
     this.speed = speed||1;
     this.events = [];
+    this.eventcallback = eventcallback;
 };
 
 Player.prototype.getLineSegments = function (y0, y1, t) {
@@ -106,6 +107,11 @@ Player.prototype.createEvent = function(t, action) {
     
 
     this.addEvent(event);
+    if (this.eventcallback)
+    {
+        this.eventcallback(event);
+    }
+    
     return event;
 }
 
