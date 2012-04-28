@@ -69,6 +69,21 @@ var yourPlayer;
         yourPlayer.addEvent({t: gameTimer.getGameTime(), x: Math.round(width/2), y: 0, v: 20, dx: 0});
         
         // Fake controls!
+        var KEY_LEFT = 37;
+        var KEY_RIGHT = 39;
+
+        $('body').keydown(function(e) {
+            if (e.keyCode == KEY_LEFT) {
+                yourPlayer.createEvent(gameTimer.getGameTime(), 'left');
+                console.log(gameTimer.getGameTime(), 'left', yourPlayer);
+            }
+            if (e.keyCode == KEY_RIGHT) {
+                yourPlayer.createEvent(gameTimer.getGameTime(), 'right');
+            }
+        }).keyup(function(e) {
+            yourPlayer.createEvent(gameTimer.getGameTime(), 'straight');
+        });
+        /*
         var fakeControls = setInterval(function() {
             var action;
             var ran = Math.random();
@@ -78,7 +93,7 @@ var yourPlayer;
                 action = 'left';
             }
             yourPlayer.createEvent(gameTimer.getGameTime(), action);        
-        }, 1000)
+        }, 1000)*/
 
     })
 })(jQuery);
