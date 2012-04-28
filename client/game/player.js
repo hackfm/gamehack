@@ -94,7 +94,7 @@ Player.prototype.createEvent = function(t, action) {
         if (event.dx !== dx)
         {
             event.dx = dx;
-            event.v = Math.max(Math.min(event.v / 1.1, 1.0), 0.2);
+            event.v = Math.max(Math.min(event.v / 1.05, 2.0), 0.2);
         }
     }
     else
@@ -138,7 +138,7 @@ Player.prototype.getPosition = function(t) {
         return event;
     }
 
-    var a = 0.003;
+    var a = 0.01;
     var v = event.v; // current velocity
     var now = event.t;
     var x = event.x;
