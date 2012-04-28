@@ -51,7 +51,11 @@ var yourPlayer;
         var backgroundElem = $("#background")[0];
         //var backgroundRenderer = new BackgroundRenderer(gameTimer, camera, backgroundElem);
 
-            
+                
+        yourPlayer.addEvent({t: gameTimer.getGameTime(), x: Math.round(camera.width/2), y: 0, v: 10, dx: 0});
+
+//        var controls = new Controls(yourPlayer, gameTimer);
+
         // Start the timer!
         gameTimer.start();
 
@@ -67,6 +71,7 @@ var yourPlayer;
             if (lastKey == e.keyCode) {
                 return;
             }
+
             lastKey = e.keyCode;
             if (e.keyCode == KEY_LEFT) {
                 yourPlayer.createEvent(gameTimer.getGameTime(), 'left');
@@ -79,7 +84,8 @@ var yourPlayer;
             yourPlayer.createEvent(gameTimer.getGameTime(), 'straight');
             lastKey = 0;
         });
-       
+
+
 
     })
 })(jQuery);
