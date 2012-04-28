@@ -16,8 +16,12 @@
     float: left;
 }
 
+#background {
+    position: relative;
+    overflow: hidden;
+}
+
 #background table {
-    border: 1px solid #ff0;
     position: absolute;
     left: 0;
 }

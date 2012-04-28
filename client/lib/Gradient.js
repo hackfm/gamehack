@@ -43,10 +43,10 @@ var Gradient = function() {
 			var proportion = y/magicTable.height;
 			for (var x=0;x<magicTable.width;x++) {
 				var offset = (y*magicTable.width+x)*4;
-			
+				
 				var c = bayerDither(c1,c2,proportion,x,y,colourSteps);
 				
-				magicTable.setPixel(x,y,rgb);
+				magicTable.setPixel(x,y,[c.r, c.g, c.b, 1]);
 			}
 		}
 	}

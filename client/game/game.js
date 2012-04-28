@@ -3,10 +3,10 @@ var yourPlayer;
 (function($) {
     $(document).ready(function() {
 
-        var globalSpeed = 10;
+        var globalSpeed = 20;
 
         // This objects connects to the server. That's pretty important, huh?!
-        var gameTimer = new GameTimer(3);
+        var gameTimer = new GameTimer(20);
 
         // This object communicates with the server
         var server = new FakeServer();
@@ -50,17 +50,14 @@ var yourPlayer;
 
         var backgroundElem = $("#background")[0];
         //var backgroundRenderer = new BackgroundRenderer(gameTimer, camera, backgroundElem);
-
                 
-        yourPlayer.addEvent({t: gameTimer.getGameTime(), x: Math.round(camera.width/2), y: 0, v: 10, dx: 0});
-
         var controls = new Controls(yourPlayer, gameTimer);
 
         // Start the timer!
         gameTimer.start();
 
         // Initiate your player with the current gametime, position and stuff
-        yourPlayer.addEvent({t: gameTimer.getGameTime(), x: Math.round(camera.width/2), y: 0, v: 20, dx: 0});
+        yourPlayer.addEvent({t: gameTimer.getGameTime(), x: Math.round(camera.width/2), y: 0, v: 1, dx: 0});
 
 
     })
