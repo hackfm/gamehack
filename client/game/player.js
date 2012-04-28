@@ -84,11 +84,11 @@ Player.prototype.createEvent = function(t, action) {
     {
         if (action==="left")
         {
-            event.dx = -1;
+            dx = -1;
         }
         else if (action==="right")
         {
-            event.dx = 1;
+            dx = 1;
         }
         if (event.dx !== dx)
         {
