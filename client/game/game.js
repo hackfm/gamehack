@@ -8,7 +8,7 @@ var yourPlayer;
         var pixelSize = 8;
         
         // This objects connects to the server. That's pretty important, huh?!
-        var gameTimer = new GameTimer(3);
+        var gameTimer = new GameTimer(30);
         
         
 
@@ -27,12 +27,12 @@ var yourPlayer;
 
         // Map are drawn in the scenery Table and they talk to the server.
         var map = new Map(server, sceneryMagicTable);
-        map.drawArea(0);
+        /*map.drawArea(0);
 
         var offset = 0;
         setInterval(function() {
             map.drawArea(offset++);
-        }, 100);
+        }, 1000);*/
         
         // Replace this later with map or some function. Ask sven
         var fakeMap = function(){return ""};
@@ -63,17 +63,16 @@ var yourPlayer;
         gameTimer.start();
         yourPlayer.addEvent({t: gameTimer.getGameTime(), x: Math.round(width/2), y: 0, v: 10, dx: 0});
 
-        // Start the timer!
-        gameTimer.start();
-
-        // Initiate your player with the current gametime, position and stuff
-        yourPlayer.addEvent({t: gameTimer.getGameTime(), x: Math.round(width/2), y: 0, v: 20, dx: 0});
-        
         // Fake controls!
         var KEY_LEFT = 37;
         var KEY_RIGHT = 39;
+        var lastKey = 0;
 
         $('body').keydown(function(e) {
+            if (lastKey == e.keyCode) {
+                return;
+            }
+            lastKey = e.keyCode;
             if (e.keyCode == KEY_LEFT) {
                 yourPlayer.createEvent(gameTimer.getGameTime(), 'left');
                 console.log(gameTimer.getGameTime(), 'left', yourPlayer);
@@ -83,18 +82,9 @@ var yourPlayer;
             }
         }).keyup(function(e) {
             yourPlayer.createEvent(gameTimer.getGameTime(), 'straight');
+            lastKey = 0;
         });
-        /*
-        var fakeControls = setInterval(function() {
-            var action;
-            var ran = Math.random();
-            if (ran > 0.6) {
-                action = 'right'
-            } else if (ran > 0.3) {
-                action = 'left';
-            }
-            yourPlayer.createEvent(gameTimer.getGameTime(), action);        
-        }, 1000)*/
+       
 
     })
 })(jQuery);
