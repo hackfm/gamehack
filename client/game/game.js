@@ -42,6 +42,7 @@ var yourPlayer;
                     server.sendPlayerDead(playerList.id);
                     // TODO: Remove key handlers
                     alert('YOU ARE MASH!');
+                    window.location.reload();
                 }
                 else
                 {

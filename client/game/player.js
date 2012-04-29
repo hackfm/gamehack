@@ -137,6 +137,8 @@ Player.prototype.createEvent = function(t, action) {
 }
 
 Player.prototype.getPosition = function(t) {
+    var dead_already = this.dead!==null && this.dead<t;
+
     var idx = this.events.length - 1;
 
     if (idx < 0)
@@ -213,7 +215,7 @@ Player.prototype.getPosition = function(t) {
         {
             obstacle = true;
             this.kill(now);
-            break;
+            add_event = true;
         }
         if (tile === "+")
         {
@@ -229,9 +231,14 @@ Player.prototype.getPosition = function(t) {
             continue;
         }
 
-        if (add_event && !this.dead)
+        if (add_event && !deal_already)
         {
-            this.addEvent({x:x, y:y, t:now, v:v, dx:dx, obstacle:obstacle, score:score});
+            var ev = {x:x, y:y, t:now, v:v, dx:dx, obstacle:obstacle, score:score};
+            this.addEvent(ev);
+            if (this.eventcallback)
+            {
+                this.eventcallback(ev);
+            }
         }
 
         vy = v * velocity_factor[Math.abs(dx)];
