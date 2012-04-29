@@ -3,7 +3,9 @@ var yourPlayer;
 (function($) {
     $(document).ready(function() {
 
-        var globalSpeed = 15;
+        var globalSpeed = 20;
+
+        var MagicRenderer = MagicCanvas;
 
         // This objects connects to the server. That's pretty important, huh?!
         var gameTimer = new GameTimer(30);
@@ -18,9 +20,10 @@ var yourPlayer;
         // Width, Height, Pixel size
         var camera = new Camera(48, 57, 8, gameTimer);
 
+        $('#game').css('width', camera.width * camera.pixelSize);
 
         // Scenery is awesome! Let's draw it
-        var sceneryMagicTable = new MagicTable($("#scenery")[0], camera.width, camera.height, camera.pixelSize);
+        var sceneryMagicTable = new MagicRenderer($("#scenery")[0], camera.width, camera.height, camera.pixelSize);
         // Map are drawn in the scenery Table and they talk to the server.
         var map = new Map(server, sceneryMagicTable);
         
@@ -42,13 +45,15 @@ var yourPlayer;
         server.onPlayerEventBroadcastCallback(playerList.updatePlayer);
 
         //var playerMagic = new MagicCanvas(playersElem, width, height);
-        var playerMagicTable = new MagicTable($("#players")[0], camera.width, camera.height, camera.pixelSize);
+        var playerMagicTable = new MagicRenderer($("#players")[0], camera.width, camera.height, camera.pixelSize);
         var playerRenderer = new PlayerRenderer(playerList, gameTimer, camera, playerMagicTable);
 
         var backgroundElem = $("#background")[0];
-        //var backgroundRenderer = new BackgroundRenderer(gameTimer, camera, backgroundElem);
-  
-        
+
+        var backgroundRenderer = new BackgroundRenderer(gameTimer, camera, backgroundElem, MagicRenderer);
+                
+        yourPlayer.addEvent({t: gameTimer.getGameTime(), x: Math.round(camera.width/2), y: 0, v: 1, dx: 0});
+
         var controls = new Controls(yourPlayer, gameTimer);
 
         server.onStartCallback(function (startY) {

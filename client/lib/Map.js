@@ -38,6 +38,7 @@ Map = (function() {
   };
 
   Map.prototype.drawArea = function(offset) {
+    this.sceneryTable.clear();
     var color, height, pixel, width, x, y, _i, _results;
     width = 48;
     height = 57;
@@ -56,13 +57,13 @@ Map = (function() {
               color = [0, 0, 0, 1];
               break;
             case "O":
-              color = [49, 79, 79, 1];
+              color = [0, 0, 0, 1];
               break;
             case "+":
-              color = [50, 205, 50, 1];
+              color = [18, 252, 40, 0.6];
               break;
             case "-":
-              color = [255, 0, 0, 1];
+              color = [0, 0, 0, 0.3];
           }
           _results1.push(this.sceneryTable.setPixel(x, height - y - 1, color));
         }

@@ -1,68 +1,117 @@
-var BackgroundRenderer = function(gameTimer, camera, container) {
-    var blockHeight = 20;
+var BackgroundRenderer = function(gameTimer, camera, container, MagicRenderer) {
+    var pub = {};
+
+    var blockHeight = 100;
     var activeBlocks = [];
 
-    var update = function() {
-        var ys = camera.getYs();
-        removeOldBlocks(ys.y0, ys.y1);
-        addNewBlocks(ys.y0, ys.y1);
-        positionBlocks(camera.getCenter());
+    var colours = [
+        '7a8aff',
+        '7ae0ff',
+        '7affcf',
+        '7aff8f',
+        'd1ff7a',
+        'fff67a',
+        'ffd47a',
+        'ff987a',
+        'ff7d7a',
+        'ff7aa5',
+        'ff7af3',
+        'c67aff',
+        '947aff',
+        '7a83ff'
+    ]
+
+    var colourCount = 1;
+    var colourIndex = 0;
+    var currentColour;
+
+
+    $(container).css('height', camera.height * camera.pixelSize)
+    $(container).css('width', camera.width * camera.pixelSize)
+
+    var getColour = function() {
+        var col = colours[colourIndex];
+
+        colourCount += 1;
+
+        if (colourCount/2 == Math.round(colourCount/2)) {
+            colourIndex += 1;
+        }
+
+        if (colourIndex > colours.length - 1) {
+            colourIndex = 0;
+        }
+
+        currentColour = col;
+        return col;
     }
 
-    var removeOldBlocks = function(y0, y1) {
-        var firstBlock = activeBlocks[0];
-        // if (firstBlock) {
-        //     console.log(firstBlock.y1 +", "+ y0)
-        // }
-        if (firstBlock && firstBlock.y1 < y0) {
-            firstBlock.elem.remove()
-            console.log('removefirst')
-            activeBlocks.shift()
-        }
-        var lastBlock = activeBlocks[activeBlocks.length-1];
-        if (lastBlock && lastBlock.y0 > y1) {
-            lastBlock.elem.remove()
-            console.log('removelast')
-            activeBlocks.pop()
-        }
+    pub.getCurrentColour = function() {
+        return currentColour;
     }
 
-    var addNewBlocks = function(y0, y1) {
-        var firstBlock = activeBlocks[0];
-        if (!firstBlock || firstBlock.y0 > y0) {
-            console.log('addfirst')
-            var magic = new MagicTable(container, camera.width, blockHeight, camera.pixelSize);
-            activeBlocks.unshift({
-                elem: magic.getElem(),
-                index: firstBlock ? firstBlock.index - 1 : 0,
-                y0: 0, 
-                y1: 0
-            });
-        }
-        var lastBlock = activeBlocks[activeBlocks.length-1];
-        if (!lastBlock || lastBlock.y1 < y1) {
-            console.log('addlast')
-            var magic = new MagicTable(container, camera.width, blockHeight, camera.pixelSize);
+    var hexToRgb = function(hex) {
+        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result ? {
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16)
+        } : null;
+    }
+
+    var addBlocks = function(num) {
+        for (var i = 0; i < num; i++) {
+            var magic = new MagicRenderer(container, camera.width, blockHeight, camera.pixelSize);
+            //Gradient.renderMagicTable(hexToRgb(getColour()), hexToRgb(getColour()), 2, magic)
+            Gradient.render(hexToRgb(getColour()), hexToRgb(getColour()), 2, magic)
+            
             activeBlocks.push({
                 elem: magic.getElem(),
-                index: lastBlock ? lastBlock.index + 1 : 0, 
+                magic: magic,
+                index: i,
                 y0: 0, 
                 y1: 0
             });
         }
     }
 
+
+    var addLastToFirst = function(y0, y1) {
+        var firstBlock = activeBlocks[0];
+        var lastBlock = activeBlocks[activeBlocks.length-1];
+        if (firstBlock && firstBlock.y1 < y0) {
+            firstBlock.index = lastBlock.index + 1;
+            //Gradient.renderMagicTable(hexToRgb(getColour()), hexToRgb(getColour()), 2, firstBlock.magic)
+            Gradient.render(hexToRgb(getColour()), hexToRgb(getColour()), 2, firstBlock.magic)
+            activeBlocks.push(activeBlocks.shift());
+        }        
+    }
+
+
     var positionBlocks = function(yOffset) {
-        console.log(yOffset)
         activeBlocks.forEach(function(block) {
-            var y0 = (block.index * blockHeight) - yOffset;
-            block.elem.css('top', y0);
+            var y0 = block.index * blockHeight;
+            // This is totally backwards, but hey, it works
+            var yPos = ((-block.index * blockHeight) + yOffset) * camera.pixelSize;
+
+            block.elem.css('top', yPos);
             block.y0 = y0;
             block.y1 = y0 + blockHeight;
-            //console.log(activeBlocks)
-            //console.log(block.y0)
         });
     }
 
+    addBlocks(2);
+
+    var update = function() {
+        var ys = camera.getYs();
+        y0 = ys.y0 + blockHeight/2;
+        y1 = ys.y1 - blockHeight/2;
+        addLastToFirst(y0, y1);
+        positionBlocks(camera.getCenter());
+    }
+
+
     gameTimer.subscribe(update);
+
+    return pub;
 };

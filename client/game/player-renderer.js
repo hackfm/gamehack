@@ -18,7 +18,7 @@ var PlayerRenderer = function(players, gameTimer, camera, magic) {
         var len = xValues.length;
         for (var i = 0; i < len; i++) {
             if ((typeof(xValues[i]) != "undefined")) {              
-                magic.setPixel(xValues[i], camera.height - i, [0, 0, 0, 1])
+                magic.setPixel(xValues[i], camera.height - i, [255, 255, 255, 1])
             }
         }
     }
@@ -27,11 +27,10 @@ var PlayerRenderer = function(players, gameTimer, camera, magic) {
         var position = player.getPosition(gameTime);
         var ys = camera.getYs();
         var y = camera.height - (position.y - ys.y0);
-        magic.setPixel(position.x, y, [255, 0, 0, 1])
+        magic.setPixel(position.x, y, [0, 0, 0, 1])
     }
 
     playerRenderer.update = function(gameTime) {
-
         magic.clear();
 
         playersSorted = players.otherPlayers();

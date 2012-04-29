@@ -1,3 +1,14 @@
+body {
+    background: #000;
+}
+
+#game {
+    position: relative;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+
 #players,
 #background,
 #scenery {
@@ -6,18 +17,19 @@
     left: 0;
 }
 
-#game {
-    position: relative;
-    border: 1px solid;   
-    float: left;         
-}
 
 #players {
     float: left;
 }
 
-#background table {
-    border: 1px solid #ff0;
+#background {
+    position: relative;
+    overflow: hidden;
+    background-color: #7AE0FF;
+}
+
+#background table,
+#background canvas {
     position: absolute;
     left: 0;
 }
