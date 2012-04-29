@@ -149,7 +149,7 @@ Player.prototype.getPosition = function(t) {
 
     if (dead_already)
     {
-        retur this.events[idx];
+        return this.events[idx];
     }
 
     for (; idx >= 0; --idx)
