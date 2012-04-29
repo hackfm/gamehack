@@ -19,24 +19,24 @@ var Gradient = function() {
 		return smoothBlend(c1,c2,quantisedP);
 	}
 	
-	function render(c1,c2,colourSteps,element) {
-		var context = element.getContext("2d");
-		var imageData = context.createImageData(element.width, element.height);
-		var pixels = imageData.data;
-		for (var y=0;y<element.height;y++) {
-			var proportion = y/element.height;
-			for (var x=0;x<element.width;x++) {
-				var offset = (y*element.width+x)*4;
+	function render(c1,c2,colourSteps,magic) {
+
+		for (var y=0;y<magic.height;y++) {
+			var proportion = y/magic.height;
+			for (var x=0;x<magic.width;x++) {
+				//var offset = (y*magic.width+x)*4;
 			
 				var c = bayerDither(c1,c2,proportion,x,y,colourSteps)
 			
-				pixels[offset]=c.r;
-				pixels[offset+1]=c.g;
-				pixels[offset+2]=c.b;
-				pixels[offset+3]=255;
+				magic.setPixel(x,y,[c.r, c.g, c.b, 1]);
+				
+				// pixels[offset]=c.r;
+				// pixels[offset+1]=c.g;
+				// pixels[offset+2]=c.b;
+				// pixels[offset+3]=255;
 			}
 		}
-		context.putImageData(imageData,0,0);
+		//context.putImageData(imageData,0,0);
 	}
 	function renderMagicTable(c1,c2,colourSteps,magicTable) {
 		for (var y=0;y<magicTable.height;y++) {

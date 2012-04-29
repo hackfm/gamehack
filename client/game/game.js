@@ -5,7 +5,7 @@ var yourPlayer;
 
         var globalSpeed = 20;
 
-        var MagicRenderer = MagicTable;
+        var MagicRenderer = MagicCanvas;
 
         // This objects connects to the server. That's pretty important, huh?!
         var gameTimer = new GameTimer(30);
@@ -22,6 +22,7 @@ var yourPlayer;
         // Width, Height, Pixel size
         var camera = new Camera(48, 57, 8, gameTimer);
 
+        $('#game').css('width', camera.width * camera.pixelSize);
 
         // Scenery is awesome! Let's draw it
         var sceneryMagicTable = new MagicRenderer($("#scenery")[0], camera.width, camera.height, camera.pixelSize);
