@@ -3,12 +3,20 @@ var BackgroundRenderer = function(gameTimer, camera, container) {
     var activeBlocks = [];
 
     var colours = [
-        'ffffff',
-        'bee7fc',
-        '9c56d2'
+        'ffcecf',
+        'ffcecf',
+        'ffcef8',
+        'deceff',
+        'cee6ff',
+        'cefcff',
+        'ceffe7',
+        'e2ffce',
+        'feffce',
+        'ffeece'
     ]
 
-    colourIndex = colours.length-1;
+    colourCount = 1;
+    colourIndex = 0;
 
     $(container).css('height', camera.height * camera.pixelSize)
     $(container).css('width', camera.width * camera.pixelSize)
@@ -16,9 +24,14 @@ var BackgroundRenderer = function(gameTimer, camera, container) {
     var getColour = function() {
         var col = colours[colourIndex];
 
-        colourIndex -= 1;
-        if (colourIndex < 0) {
-            colourIndex = colours.length-1;
+        colourCount += 1;
+
+        if (colourCount/2 == Math.round(colourCount/2)) {
+            colourIndex += 1;
+        }
+
+        if (colourIndex > colours.length - 1) {
+            colourIndex = 0;
         }
 
         return col;
