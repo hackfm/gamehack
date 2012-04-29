@@ -13,50 +13,62 @@ var yourPlayer;
         // This object communicates with the server
         var server = new Server();
 
-        server.onGametime(function(gTime) {
+        // Let's wait for the server before doing anything....
+        server.onStartCallback(function (gTime, startY) {
+
             gameTimer.setGameTime(gTime);
-        });
 
-        // Width, Height, Pixel size
-        var camera = new Camera(48, 57, 8, gameTimer);
 
-        $('#game').css('width', camera.width * camera.pixelSize);
+            // Width, Height, Pixel size
+            var camera = new Camera(48, 57, 8, gameTimer);
 
-        // Scenery is awesome! Let's draw it
-        var sceneryMagicTable = new MagicRenderer($("#scenery")[0], camera.width, camera.height, camera.pixelSize);
-        // Map are drawn in the scenery Table and they talk to the server.
-        var map = new Map(server, sceneryMagicTable);
-        
-        var mapCheckFunction = function(x, y){
-            return map.getPixel(x, y);
-        };
+            $('#game').css('width', camera.width * camera.pixelSize);
 
-        // This is you! Yeah!
-        var yourPlayer = new Player(mapCheckFunction, camera.width, globalSpeed, function (event) {
-            server.playerEventCallback(playerList.id, event);
-        });
-        camera.setFocusPlayer(yourPlayer);
-        camera.onUpdateMap(function(offsetY) {
-            map.drawArea(offsetY);
-        })
-        
-        // We store all players in a dedicated list
-        var playerList = new PlayerList(yourPlayer, server, mapCheckFunction, globalSpeed);        
-        server.onPlayerEventBroadcastCallback(playerList.updatePlayer);
+            // Scenery is awesome! Let's draw it
+            var sceneryMagicTable = new MagicRenderer($("#scenery")[0], camera.width, camera.height, camera.pixelSize);
+            // Map are drawn in the scenery Table and they talk to the server.
+            var map = new Map(server, sceneryMagicTable);
+            
+            var mapCheckFunction = function(x, y){
+                return map.getPixel(x, y);
+            };
 
-        //var playerMagic = new MagicCanvas(playersElem, width, height);
-        var playerMagicTable = new MagicRenderer($("#players")[0], camera.width, camera.height, camera.pixelSize);
-        var playerRenderer = new PlayerRenderer(playerList, gameTimer, camera, playerMagicTable);
-
-        var backgroundElem = $("#background")[0];
-
-        var backgroundRenderer = new BackgroundRenderer(gameTimer, camera, backgroundElem, MagicRenderer);
+            // This is you! Yeah!
+            var yourPlayer = new Player(mapCheckFunction, camera.width, globalSpeed, function (event) {
+                if (event.obstacle) {
+                    // You are dead! 
+                    server.sendPlayerDead(playerList.id);
+                    // TODO: Remove key handlers
+                    alert('YOU ARE MASH!');
+                }
+                else
+                {
+                    server.playerEventCallback(playerList.id, event);
+                }
                 
-        yourPlayer.addEvent({t: gameTimer.getGameTime(), x: Math.round(camera.width/2), y: 0, v: 1, dx: 0});
+            }, gameTimer.getGameTime() + 3);
+            camera.setFocusPlayer(yourPlayer);
+            camera.onUpdateMap(function(offsetY) {
+                map.drawArea(offsetY);
+            })
+            
+            // We store all players in a dedicated list
+            var playerList = new PlayerList(yourPlayer, server, mapCheckFunction, globalSpeed);        
+            server.onPlayerEventBroadcastCallback(playerList.updatePlayer);
 
-        var controls = new Controls(yourPlayer, gameTimer);
+            //var playerMagic = new MagicCanvas(playersElem, width, height);
+            var playerMagicTable = new MagicRenderer($("#players")[0], camera.width, camera.height, camera.pixelSize);
+            var playerRenderer = new PlayerRenderer(playerList, gameTimer, camera, playerMagicTable);
 
-        server.onStartCallback(function (startY) {
+            var backgroundElem = $("#background")[0];
+
+            var backgroundRenderer = new BackgroundRenderer(gameTimer, camera, backgroundElem, MagicRenderer);
+                    
+            yourPlayer.addEvent({t: gameTimer.getGameTime(), x: Math.round(camera.width/2), y: 0, v: 1, dx: 0});
+
+            var controls = new Controls(yourPlayer, gameTimer);
+
+
             console.log ('start at', startY);
             yourPlayer.addEvent({t: gameTimer.getGameTime(), x: Math.round(camera.width/2), y: startY, v: 1, dx: 0});
             

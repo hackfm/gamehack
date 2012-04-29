@@ -2,15 +2,10 @@
 class Server    
     constructor: () ->
         @socket = io.connect 'http://ec2-46-137-147-99.eu-west-1.compute.amazonaws.com:8081'
-        @socket.on 'gametime', (data) =>
-            if @callbackOnGametime 
-                @callbackOnGametime data.gametime
-            else
-                console.log 'Y U NO USE Server.onGametime??'
 
         @socket.on 'startGame', (data) =>
             if @startCallback 
-                @startCallback data.y
+                @startCallback data.gametime, data.y
             else
                 console.log 'Y U NO USE Server.onStartCallback??'
 
@@ -26,18 +21,14 @@ class Server
             else
                 console.log 'Y U NO USE Server.onPlayerEventBroadcastCallback??'
 
-    onGametime: (@callbackOnGametime) =>
-
     onMapSegment: (@callbackOnMapSegment) =>
 
     onStartCallback: (@startCallback) =>
 
     onPlayerEventBroadcastCallback: (@playerEventBroadcastCallback) =>
-        console.log 'adding a  callback', @playerEventBroadcastCallback
 
-
-    askForMapSegment: (num) =>
-        @socket.emit('sendMapSegment', num)
+    sendPlayerDead: (id) =>
+        @socket.emit 'playerDead', {id: id}
 
     playerEventCallback: (id, event) =>
         @socket.emit 'playerEvent', {id: id, event: event}

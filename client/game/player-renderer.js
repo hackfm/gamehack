@@ -14,7 +14,6 @@ var PlayerRenderer = function(players, gameTimer, camera, magic) {
     var drawXValues = function(player, gameTime) {
         var ys = camera.getYs();
         var xValues = player.getXValues(ys.y0, ys.y1, gameTime);
-        
         var len = xValues.length;
         for (var i = 0; i < len; i++) {
             if ((typeof(xValues[i]) != "undefined")) {              

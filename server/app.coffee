@@ -67,8 +67,7 @@ io.sockets.on 'connection', (socket) =>
 
     playerId = null
     # send gametime
-    socket.emit 'gametime', { gametime: (new Date().getTime()/1000) - gameTimeZero }
-    socket.emit 'startGame', { y: playerList.getStartY()}
+    socket.emit 'startGame', { y: playerList.getStartY(), gametime: (new Date().getTime()/1000) - gameTimeZero}
 
     socket.on 'playerEvent', (data) =>
         playerId = data.id
@@ -77,5 +76,9 @@ io.sockets.on 'connection', (socket) =>
     playerList.on 'playerEventBroadcast', (id, event) =>
         if id isnt playerId
             socket.emit 'playerEventBroadcast', { id: id, event:event}
+
+    socket.on 'playerDead', (data) =>
+        console.log 'remove player', data.id
+        playerList.deletePlayer  data.id
 
 
