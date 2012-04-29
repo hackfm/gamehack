@@ -180,7 +180,7 @@ Player.prototype.getPosition = function(t) {
         if (tile === "+")
         {
             v *= 1.1;
-            score += 500;
+            score += 100;
         }
         else if (tile === "-")
         {
