@@ -229,9 +229,14 @@ Player.prototype.getPosition = function(t) {
             continue;
         }
 
-        if (add_event && !this.dead)
+        if (add_event || this.dead)
         {
-            this.addEvent({x:x, y:y, t:now, v:v, dx:dx, obstacle:obstacle, score:score});
+            var ev = {x:x, y:y, t:now, v:v, dx:dx, obstacle:obstacle, score:score};
+            this.addEvent(ev);
+            if (this.eventcallback)
+            {
+                this.eventcallback(ev);
+            }
         }
 
         vy = v * velocity_factor[Math.abs(dx)];
