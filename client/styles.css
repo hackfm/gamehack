@@ -6,6 +6,7 @@ body {
     position: relative;
     margin: 0 auto;
     margin-top: 20px;
+    overflow: hidden;
 }
 
 
@@ -81,6 +82,32 @@ body {
 
 .middleButton {
     left: 33.333%;
+}
+
+.credits {
+    position: absolute;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 2em;
+    color: #fff;
+    background: #000;
+    padding: 10px;
+    width: 400px;
+    left: -5px;
+z-index: 200;
+     -webkit-transition: top 1s linear;  /* Saf3.2+, Chrome */
+     -moz-transition: top 1s linear;  /* FF4+ */
+      -ms-transition: top 1s linear;  /* IE10 */
+       -o-transition: top 1s linear;  /* Opera 10.5+ */
+          transition: top 1s linear;
+}
+
+.credits a {
+    text-decoration: none;
+    color: #fff;
+}
+
+.credits a:hover {
+    color: #ebff7b;
 }
 
 
