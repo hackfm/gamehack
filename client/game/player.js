@@ -245,7 +245,7 @@ Player.prototype.getPosition = function(t) {
         T = inc/vy/this.speed;
     }
 
-    return {x:x, y:y, t:now, v:v, dx:dx, obstacle:obstacle, score:score, graceperiod: now<graceperiod_end};
+    return {x:x, y:y, t:now, v:v, dx:dx, obstacle:obstacle, score:score, graceperiod: now<this.graceperiod_end};
 }
 
 if ((typeof(module) != "undefined"))
