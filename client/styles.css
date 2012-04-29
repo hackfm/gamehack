@@ -19,6 +19,7 @@
 #background {
     position: relative;
     overflow: hidden;
+    background-color: #7AE0FF;
 }
 
 #background table {

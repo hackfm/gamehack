@@ -3,16 +3,20 @@ var BackgroundRenderer = function(gameTimer, camera, container) {
     var activeBlocks = [];
 
     var colours = [
-        'ffcecf',
-        'ffcecf',
-        'ffcef8',
-        'deceff',
-        'cee6ff',
-        'cefcff',
-        'ceffe7',
-        'e2ffce',
-        'feffce',
-        'ffeece'
+        '7a8aff',
+        '7ae0ff',
+        '7affcf',
+        '7aff8f',
+        'd1ff7a',
+        'fff67a',
+        'ffd47a',
+        'ff987a',
+        'ff7d7a',
+        'ff7aa5',
+        'ff7af3',
+        'c67aff',
+        '947aff',
+        '7a83ff'
     ]
 
     colourCount = 1;
@@ -49,7 +53,7 @@ var BackgroundRenderer = function(gameTimer, camera, container) {
     var addBlocks = function(num) {
         for (var i = 0; i < num; i++) {
             var magic = new MagicTable(container, camera.width, blockHeight, camera.pixelSize);
-            Gradient.renderMagicTable(hexToRgb(getColour()), hexToRgb(getColour()), 3, magic)
+            Gradient.renderMagicTable(hexToRgb(getColour()), hexToRgb(getColour()), 2, magic)
             activeBlocks.push({
                 elem: magic.getElem(),
                 magic: magic,
@@ -66,7 +70,7 @@ var BackgroundRenderer = function(gameTimer, camera, container) {
         var lastBlock = activeBlocks[activeBlocks.length-1];
         if (firstBlock && firstBlock.y1 < y0) {
             firstBlock.index = lastBlock.index + 1;
-            Gradient.renderMagicTable(hexToRgb(getColour()), hexToRgb(getColour()), 3, firstBlock.magic)
+            Gradient.renderMagicTable(hexToRgb(getColour()), hexToRgb(getColour()), 2, firstBlock.magic)
             activeBlocks.push(activeBlocks.shift());
         }        
     }
