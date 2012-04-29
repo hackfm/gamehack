@@ -17,10 +17,11 @@ var Camera = function(width, height, pixelSize, gameTimer, subjectPlayer) {
             // THIS IS BACKWARDS? I think we have some crossed wires with player.js
             camera.y0 = position.y - top; // start (bottom of screen)
             camera.y1 = position.y + bottom; // end (top of screen)
+            camera.score = position.score;
         }
 
         if (callbackMap) {
-            callbackMap(position.y - top);
+            callbackMap(position.y - top, position.score);
         }
     }
 

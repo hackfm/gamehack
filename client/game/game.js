@@ -48,8 +48,14 @@ var yourPlayer;
                 
             }, gameTimer.getGameTime() + 3);
             camera.setFocusPlayer(yourPlayer);
-            camera.onUpdateMap(function(offsetY) {
+            camera.onUpdateMap(function(offsetY, score) {
                 map.drawArea(offsetY);
+                var score_string = score.toFixed();
+                while (score_string.length < 5)
+                {
+                    score_string = "0"+score_string;
+                }
+                $("#score").text("SCORE "+score_string;
             })
             
             // We store all players in a dedicated list
