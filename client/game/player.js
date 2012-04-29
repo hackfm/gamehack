@@ -147,6 +147,11 @@ Player.prototype.getPosition = function(t) {
         return null;
     }
 
+    if (dead_already)
+    {
+        return this.events[idx];
+    }
+
     for (; idx >= 0; --idx)
     {
         if (this.events[idx].t < t)
@@ -245,7 +250,7 @@ Player.prototype.getPosition = function(t) {
         T = inc/vy/this.speed;
     }
 
-    return {x:x, y:y, t:now, v:v, dx:dx, obstacle:obstacle, score:score};
+    return {x:x, y:y, t:now, v:v, dx:dx, obstacle:obstacle, score:score, graceperiod: now<this.graceperiod_end};
 }
 
 if ((typeof(module) != "undefined"))
