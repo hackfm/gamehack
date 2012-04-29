@@ -31,7 +31,6 @@ var PlayerRenderer = function(players, gameTimer, camera, magic) {
     }
 
     playerRenderer.update = function(gameTime) {
-        console.log('ss')
         magic.clear();
 
         playersSorted = players.otherPlayers();

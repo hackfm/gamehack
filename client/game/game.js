@@ -6,7 +6,7 @@ var yourPlayer;
         var globalSpeed = 20;
 
         // This objects connects to the server. That's pretty important, huh?!
-        var gameTimer = new GameTimer(20);
+        var gameTimer = new GameTimer(30);
 
         // This object communicates with the server
         var server = new FakeServer();
@@ -47,7 +47,7 @@ var yourPlayer;
         var playerRenderer = new PlayerRenderer(playerList, gameTimer, camera, playerMagicTable);
 
         var backgroundElem = $("#background")[0];
-        //var backgroundRenderer = new BackgroundRenderer(gameTimer, camera, backgroundElem);
+        var backgroundRenderer = new BackgroundRenderer(gameTimer, camera, backgroundElem);
                 
         yourPlayer.addEvent({t: gameTimer.getGameTime(), x: Math.round(camera.width/2), y: 0, v: 1, dx: 0});
 
