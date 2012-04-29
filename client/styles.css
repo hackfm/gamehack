@@ -87,12 +87,14 @@ body {
 .credits {
     position: absolute;
     font-family: 'Press Start 2P', cursive;
-    font-size: 2em;
+    font-size: 21px;
+    line-height: 1.3em;
     color: #fff;
     background: #000;
     padding: 10px;
     width: 400px;
     left: -5px;
+    text-transform: uppercase;
 z-index: 200;
      -webkit-transition: top 1s linear;  /* Saf3.2+, Chrome */
      -moz-transition: top 1s linear;  /* FF4+ */

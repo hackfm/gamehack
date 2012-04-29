@@ -48,7 +48,7 @@ var yourPlayer;
                         $("#url").append('<br><a href="http://twitter.com/?status=I+just+scored+'+event.score+'+points+in+%23urmash.+http%3A%2F%2Fu-r-mash.spacedentist.net%2F+%23gamehack">TWEET YOUR SCORE!</a>');
                         $(".phoneButton").remove();
 
-                        var credits = $('<div class="credits"><a href="http://www.twitter.com/dawhiting">dawhiting</a><br/><a href="http://www.twitter.com/marekventur">marekventur</a><br /><a href="http://www.twitter.com/spacedentist">spacedentist</a><br/><a href="http://www.twitter.com/tdhooper">tdhooper</a></div>');
+                        var credits = $('<div class="credits">Brought to you by:<br /><a href="http://www.twitter.com/dawhiting">@dawhiting</a><br/><a href="http://www.twitter.com/marekventur">@marekventur</a><br /><a href="http://www.twitter.com/spacedentist">@spacedentist</a><br/><a href="http://www.twitter.com/tdhooper">@tdhooper</a></div>');
                         credits.css('top', camera.height * camera.pixelSize);
                         $("#game").append(credits);
                         credits.css('top',  -credits.height() + 370);
