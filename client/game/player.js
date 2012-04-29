@@ -97,7 +97,7 @@ Player.prototype.createEvent = function(t, action) {
         if (event.dx !== dx)
         {
             event.dx = dx;
-            event.v = Math.max(Math.min(event.v / 1.05, 2.0), 0.2);
+            event.v = Math.max(event.v / 1.01, 0.2);
         }
     }
     else
