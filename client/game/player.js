@@ -3,12 +3,13 @@ var velocity_factor = [
     0.7071067811865476
     ];
 
-var Player = function(map, width, speed, eventcallback) {
+var Player = function(map, width, speed, eventcallback, graceperiod_end) {
     this.map = map;
     this.width = width;
     this.speed = speed||1;
     this.events = [];
     this.eventcallback = eventcallback;
+    this.graceperiod_end = graceperiod_end || 0;
 };
 
 Player.prototype.getLineSegments = function (y0, y1, t) {
@@ -172,7 +173,7 @@ Player.prototype.getPosition = function(t) {
 
         var tile = this.map(x, y);
 
-        if (tile === "X" || tile === "O")
+        if (now >= this.graceperiod_end && (tile === "X" || tile === "O"))
         {
             obstacle = true;
             break;
