@@ -11,13 +11,22 @@ var PlayerRenderer = function(players, gameTimer, camera, magic) {
         }
     }
 
+    var fadeDistance = 20;
+
     var drawXValues = function(player, gameTime) {
         var ys = camera.getYs();
         var xValues = player.getXValues(ys.y0, ys.y1, gameTime);
+        var pos = player.getPosition(gameTime);
+        var yPos = pos.y;
+        var distance = camera.getCenter() - yPos;
         var len = xValues.length;
+
         for (var i = 0; i < len; i++) {
-            if ((typeof(xValues[i]) != "undefined")) {              
-                magic.setPixel(xValues[i], camera.height - i, [255, 255, 255, 1])
+            var fade = distance + i;
+            if (fade < fadeDistance) {
+                if ((typeof(xValues[i]) != "undefined")) {         
+                    magic.setPixel(xValues[i], camera.height - i, [255, 255, 255, fade/fadeDistance])
+                }                
             }
         }
     }
