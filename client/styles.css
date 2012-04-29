@@ -68,7 +68,7 @@ body {
     position: absolute;
     height: 100%;
     width: 33.333%;
-    top: 0;
+    top: 50px;
     left: 0;
     bottom: 0;
     display: block;
