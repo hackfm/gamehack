@@ -16,6 +16,7 @@ mimeTypes =
     png:  "image/png"
     js:   "text/javascript"
     css:  "text/css"
+    mp3:  "audio/mpeg"
 
 app = require('http').createServer (req, res) ->
     uri = url.parse(req.url).pathname
