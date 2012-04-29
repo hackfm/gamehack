@@ -55,7 +55,7 @@ var yourPlayer;
                 {
                     score_string = "0"+score_string;
                 }
-                $("#score").text("SCORE "+score_string;
+                $("#score").text("SCORE "+score_string);
             })
             
             // We store all players in a dedicated list
