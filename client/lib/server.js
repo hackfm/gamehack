@@ -11,6 +11,8 @@ Server = (function() {
 
     this.sendPlayerDead = __bind(this.sendPlayerDead, this);
 
+    this.onRemovePlayerBroadcastCallback = __bind(this.onRemovePlayerBroadcastCallback, this);
+
     this.onPlayerEventBroadcastCallback = __bind(this.onPlayerEventBroadcastCallback, this);
 
     this.onStartCallback = __bind(this.onStartCallback, this);
@@ -40,6 +42,14 @@ Server = (function() {
         return console.log('Y U NO USE Server.onPlayerEventBroadcastCallback??');
       }
     });
+    this.socket.on('removePlayerBroadcast', function(id) {
+      console.log('mashmashmahs');
+      if (_this.removePlayerBroadcastCallback) {
+        return _this.removePlayerBroadcastCallback(id);
+      } else {
+        return console.log('Y U NO USE Server.onRemovePlayerBroadcastCallback??');
+      }
+    });
   }
 
   Server.prototype.onMapSegment = function(callbackOnMapSegment) {
@@ -52,6 +62,10 @@ Server = (function() {
 
   Server.prototype.onPlayerEventBroadcastCallback = function(playerEventBroadcastCallback) {
     this.playerEventBroadcastCallback = playerEventBroadcastCallback;
+  };
+
+  Server.prototype.onRemovePlayerBroadcastCallback = function(removePlayerBroadcastCallback) {
+    this.removePlayerBroadcastCallback = removePlayerBroadcastCallback;
   };
 
   Server.prototype.sendPlayerDead = function(id) {

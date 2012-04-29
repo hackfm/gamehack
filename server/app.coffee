@@ -79,7 +79,10 @@ io.sockets.on 'connection', (socket) =>
             socket.emit 'playerEventBroadcast', { id: id, event:event}
 
     socket.on 'playerDead', (data) =>
-        console.log 'remove player', data.id
         playerList.deletePlayer  data.id
+
+    playerList.on 'removePlayerBroadcast', (id) =>
+        #if id isnt playerId
+            socket.emit 'removePlayerBroadcast', id
 
 

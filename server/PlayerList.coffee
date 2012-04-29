@@ -25,6 +25,7 @@ class PlayerList extends events.EventEmitter
 
     deletePlayer: (id) =>
         delete @players[id]
+        @emit 'removePlayerBroadcast', id
 
 
 module.exports = PlayerList

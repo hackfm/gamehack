@@ -35,7 +35,9 @@ PlayerList = (function() {
     }
   };
 
-  PlayerList.prototype.removePlayer = function(data) {};
+  PlayerList.prototype.removePlayer = function(id) {
+    return delete this.players[id];
+  };
 
   PlayerList.prototype.you = function() {
     return this.thisPlayer;

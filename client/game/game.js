@@ -18,6 +18,7 @@ var yourPlayer;
 
             gameTimer.setGameTime(gTime);
 
+
             // Width, Height, Pixel size
             var camera = new Camera(48, 57, 8, gameTimer, startY);
 
@@ -34,14 +35,11 @@ var yourPlayer;
 
             // This is you! Yeah!
             var yourPlayer = new Player(mapCheckFunction, camera.width, globalSpeed, function (event) {
-                
-                console.log('hereh');
                 if (event.obstacle) {
                     // You are dead! 
                     server.sendPlayerDead(playerList.id);
                     // TODO: Remove key handlers
-                    alert('YOU ARE MASH!');
-                    window.location.reload();
+                    $("#game").append('<a href="#" class="message" onclick="window.location.reload()">YOU ARE MASH!</a>')
                 }
                 else
                 {
@@ -63,6 +61,7 @@ var yourPlayer;
             // We store all players in a dedicated list
             var playerList = new PlayerList(yourPlayer, server, mapCheckFunction, globalSpeed);        
             server.onPlayerEventBroadcastCallback(playerList.updatePlayer);
+            server.onRemovePlayerBroadcastCallback(playerList.removePlayer);
 
             //var playerMagic = new MagicCanvas(playersElem, width, height);
             var playerMagicTable = new MagicRenderer($("#players")[0], camera.width, camera.height, camera.pixelSize);
@@ -71,6 +70,8 @@ var yourPlayer;
             var backgroundElem = $("#background")[0];
 
             var backgroundRenderer = new BackgroundRenderer(gameTimer, camera, backgroundElem, MagicRenderer);
+                    
+            yourPlayer.addEvent({t: gameTimer.getGameTime(), x: Math.round(camera.width/2), y: 0, v: 1, dx: 0});
 
             var controls = new Controls(yourPlayer, gameTimer);
 

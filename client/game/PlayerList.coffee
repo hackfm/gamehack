@@ -21,8 +21,8 @@ class PlayerList
 
         #add to @players or call add on this player
 
-    removePlayer: (data) =>
-        #delete @players[data.id]
+    removePlayer: (id) =>
+        delete @players[id]
 
     you: () =>
         return @thisPlayer
