@@ -27,8 +27,8 @@ class Map
                     when " " then color = [0, 0, 0, 0]
                     when "X" then color = [0, 0, 0, 1]
                     when "O" then color = [49, 79, 79, 1]
-                    when "+" then color = [50, 205, 50, 1]
-                    when "-" then color = [255, 0, 0, 1]
+                    when "+" then color = [18, 252, 40, 0.6]
+                    when "-" then color = [0, 0, 0, 0.3]
                 
                 @sceneryTable.setPixel x, height-y-1, color
     
