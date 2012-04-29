@@ -39,8 +39,7 @@ var yourPlayer;
                     // You are dead! 
                     server.sendPlayerDead(playerList.id);
                     // TODO: Remove key handlers
-                    alert('YOU ARE MASH!');
-                    //window.location.reload();
+                    $("#game").append('<a href="#" class="message" onclick="window.location.reload()">YOU ARE MASH!</a>')
                 }
                 else
                 {

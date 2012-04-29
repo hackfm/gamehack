@@ -40,3 +40,23 @@ body {
     padding: 0;
     margin: 0;
 }
+
+.message {
+    font-family: 'Press Start 2P', cursive;      
+    font-size:2em;
+    position: absolute;
+    top: 100px;
+    width: 200px;
+    left: 80px;
+    display: block;
+    background: #fff;
+    color: #000;
+    text-decoration: none;
+    text-align: center;
+    padding: 10px;
+}
+
+.message:hover {
+    background: #000;
+    color: #fff;
+}
