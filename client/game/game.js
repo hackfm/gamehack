@@ -46,6 +46,9 @@ var yourPlayer;
                     credits.css('top', camera.height * camera.pixelSize);
                     $("#game").append(credits);
                     credits.css('top',  -credits.height() + 370);
+
+                    $("#url").append('<br><a href="http://twitter.com/?status=I+just+scored+'+event.score+'+points+in+%23urmash.+http%3A%2F%2Fu-r-mash.spacedentist.net%2F+%23gamehack">TWEET YOUR SCORE!</a>');
+                    $(".phoneButton").remove();
                 }
                 else
                 {
