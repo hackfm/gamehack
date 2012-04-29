@@ -36,6 +36,7 @@ var yourPlayer;
             // This is you! Yeah!
             var yourPlayer = new Player(mapCheckFunction, camera.width, globalSpeed, function (event) {
                 if (event.obstacle) {
+                    $('#music').attr('src', 'http://users.last.fm/~marek/hoffracer_death.mp3');
                     // You are dead! 
                     server.sendPlayerDead(playerList.id);
                     // TODO: Remove key handlers
