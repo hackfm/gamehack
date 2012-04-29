@@ -9,7 +9,7 @@ Server = (function() {
   function Server() {
     this.playerEventCallback = __bind(this.playerEventCallback, this);
 
-    this.askForMapSegment = __bind(this.askForMapSegment, this);
+    this.sendPlayerDead = __bind(this.sendPlayerDead, this);
 
     this.onPlayerEventBroadcastCallback = __bind(this.onPlayerEventBroadcastCallback, this);
 
@@ -17,20 +17,11 @@ Server = (function() {
 
     this.onMapSegment = __bind(this.onMapSegment, this);
 
-    this.onGametime = __bind(this.onGametime, this);
-
     var _this = this;
     this.socket = io.connect('http://ec2-46-137-147-99.eu-west-1.compute.amazonaws.com:8081');
-    this.socket.on('gametime', function(data) {
-      if (_this.callbackOnGametime) {
-        return _this.callbackOnGametime(data.gametime);
-      } else {
-        return console.log('Y U NO USE Server.onGametime??');
-      }
-    });
     this.socket.on('startGame', function(data) {
       if (_this.startCallback) {
-        return _this.startCallback(data.y);
+        return _this.startCallback(data.gametime, data.y);
       } else {
         return console.log('Y U NO USE Server.onStartCallback??');
       }
@@ -51,10 +42,6 @@ Server = (function() {
     });
   }
 
-  Server.prototype.onGametime = function(callbackOnGametime) {
-    this.callbackOnGametime = callbackOnGametime;
-  };
-
   Server.prototype.onMapSegment = function(callbackOnMapSegment) {
     this.callbackOnMapSegment = callbackOnMapSegment;
   };
@@ -65,11 +52,12 @@ Server = (function() {
 
   Server.prototype.onPlayerEventBroadcastCallback = function(playerEventBroadcastCallback) {
     this.playerEventBroadcastCallback = playerEventBroadcastCallback;
-    return console.log('adding a  callback', this.playerEventBroadcastCallback);
   };
 
-  Server.prototype.askForMapSegment = function(num) {
-    return this.socket.emit('sendMapSegment', num);
+  Server.prototype.sendPlayerDead = function(id) {
+    return this.socket.emit('playerDead', {
+      id: id
+    });
   };
 
   Server.prototype.playerEventCallback = function(id, event) {

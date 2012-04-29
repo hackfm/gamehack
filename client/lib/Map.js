@@ -38,10 +38,10 @@ Map = (function() {
   };
 
   Map.prototype.drawArea = function(offset) {
-    this.sceneryTable.clear();
     var color, height, pixel, width, x, y, _i, _results;
     width = 48;
     height = 57;
+    this.sceneryTable.clear();
     _results = [];
     for (y = _i = 0; 0 <= height ? _i <= height : _i >= height; y = 0 <= height ? ++_i : --_i) {
       _results.push((function() {

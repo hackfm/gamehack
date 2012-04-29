@@ -54,6 +54,9 @@ Player.prototype.getLineSegments = function (y0, y1, t) {
 }
 
 Player.prototype.getXValues = function (y0, y1, t) {
+    //console.log(y0)
+    //console.log(y1)
+    //console.log(t)
     var linesegments = this.getLineSegments(y0, y1, t);
     var xvalues = [];
 
