@@ -35,6 +35,7 @@ app = require('http').createServer (req, res) ->
             res.write '404 Not Found\n'
             res.end('not found')   
             return
+   
         mimeType = mimeTypes[path.extname(filename).split(".")[1]]
         res.writeHead 200, {'Content-Type':mimeType}
         fileStream = fs.createReadStream filename
@@ -92,5 +93,8 @@ io.sockets.on 'connection', (socket) =>
     socket.on 'disconnect', () =>
         playerList.removeListener 'playerEventBroadcast', eventBroadcastEvent
         playerList.removeListener 'removePlayerBroadcast', removePlayerBroadcastEvent
+
+    socket.on 'sendY', (y) =>
+        playerList.setY y
 
 
