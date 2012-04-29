@@ -10,6 +10,7 @@ var Player = function(map, width, speed, eventcallback, graceperiod_end) {
     this.events = [];
     this.eventcallback = eventcallback;
     this.graceperiod_end = graceperiod_end || 0;
+    this.dead = null;
 };
 
 Player.prototype.getLineSegments = function (y0, y1, t) {
@@ -81,6 +82,9 @@ Player.prototype.addEvent = function (event) {
 }
 
 Player.prototype.createEvent = function(t, action) {
+    if (this.dead !== null && this.dead <= t)
+        return;
+
     var event = this.getPosition(t);
     var dx = 0;
     
@@ -104,6 +108,7 @@ Player.prototype.createEvent = function(t, action) {
     {
         event.dx = 0;
         event.v = 0;
+        this.dead = event.t;
     }
     
 
@@ -155,7 +160,7 @@ Player.prototype.getPosition = function(t) {
     var dx = (event.dx||0)|0;
     var vy = v * velocity_factor[Math.abs(dx)];
     var T = inc/vy/this.speed; // time needed for travelling one pixel in y-direction
-    var obstacle = false;
+    var obstacle = !!event.obstacle;
     var score = event.score;
 
     while(true)
@@ -176,6 +181,7 @@ Player.prototype.getPosition = function(t) {
         if (now >= this.graceperiod_end && (tile === "X" || tile === "O"))
         {
             obstacle = true;
+            this.dead = now;
             break;
         }
         if (tile === "+")
