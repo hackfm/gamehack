@@ -176,6 +176,7 @@ Player.prototype.getPosition = function(t) {
     var a = 0.03;
     var v = event.v; // current velocity
     var now = event.t;
+    var event_t = event.t;
     var x = event.x;
     var y = event.y;
     var inc = v > 0 ? 1 : -1; // direction of y-velocity
@@ -198,6 +199,12 @@ Player.prototype.getPosition = function(t) {
         score += Math.pow(v*3, 2) |0;
         y += inc;
         x += dx;
+
+        if (now>=event_t + this.speed)
+        {
+            add_event = true;
+            event_t = now;
+        }
 
         if (x<0)
         {
