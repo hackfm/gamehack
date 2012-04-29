@@ -168,6 +168,8 @@ Player.prototype.getPosition = function(t) {
 
     while(true)
     {
+        var add_event = false; // emit events here only because of hitting the border
+
         var next = now + T;
         if (next > t)
         {
@@ -177,6 +179,20 @@ Player.prototype.getPosition = function(t) {
         score += Math.pow(v*3, 2) |0;
         y += inc;
         x += dx;
+
+        if (x<0)
+        {
+            x = 0;
+            dx = 0;
+            add_event = true;
+        }
+        else if (x>=this.width)
+        {
+            x = this.width - 1;
+            dx = 0;
+            add_event = true;
+        }
+
         v = Math.min(v+2*a*T, 3.0);
 
         var tile = this.map(x, y);
@@ -196,23 +212,18 @@ Player.prototype.getPosition = function(t) {
         {
             v /= 1.1;
         }
-        else
+        else if (!add_event)
         {
             continue;
         }
+
+        if (add_event && !this.dead)
+        {
+            this.addEvent({x:x, y:y, t:now, v:v, dx:dx, obstacle:obstacle, score:score});
+        }
+
         vy = v * velocity_factor[Math.abs(dx)];
         T = inc/vy/this.speed;
-    }
-
-    if (x<0)
-    {
-        x=0;
-        dx=0;
-    }
-    else if (x>=this.width)
-    {
-        x=this.width-1;
-        dx=0;
     }
 
     return {x:x, y:y, t:now, v:v, dx:dx, obstacle:obstacle, score:score};
