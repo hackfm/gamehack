@@ -41,6 +41,11 @@ var yourPlayer;
                     server.sendPlayerDead(playerList.id);
                     // TODO: Remove key handlers
                     $("#game").append('<a href="#" class="message" onclick="window.location.reload()">YOU ARE MASH!</a>')
+
+                    var credits = $('<div class="credits"><a href="http://www.twitter.com/dawhiting">dawhiting</a><br/><a href="http://www.twitter.com/marekventur">marekventur</a><br /><a href="http://www.twitter.com/spacedentist">spacedentist</a><br/><a href="http://www.twitter.com/tdhooper">tdhooper</a></div>');
+                    credits.css('top', camera.height * camera.pixelSize);
+                    $("#game").append(credits);
+                    credits.css('top',  -credits.height() + 370);
                 }
                 else
                 {
