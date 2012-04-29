@@ -20,7 +20,7 @@ var yourPlayer;
 
 
             // Width, Height, Pixel size
-            var camera = new Camera(48, 57, 8, gameTimer);
+            var camera = new Camera(48, 57, 8, gameTimer, startY);
 
             $('#game').css('width', camera.width * camera.pixelSize);
 
