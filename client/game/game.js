@@ -25,10 +25,10 @@ var yourPlayer;
         var sceneryMagicTable = new MagicTable($("#scenery")[0], camera.width, camera.height, camera.pixelSize);
         // Map are drawn in the scenery Table and they talk to the server.
         var map = new Map(server, sceneryMagicTable);
-        /*
+        
         var mapCheckFunction = function(x, y){
             return map.getPixel(x, y);
-        };*/
+        };
 
 
         // This is you! Yeah!
