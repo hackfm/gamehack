@@ -3,7 +3,7 @@ var velocity_factor = [
     0.7071067811865476
     ];
 
-var Player = function(map, width, speed, eventcallback, graceperiod_end) {
+var Player = function(map, width, speed, eventcallback, graceperiod_end, diecallback) {
     this.map = map;
     this.width = width;
     this.speed = speed||1;
@@ -11,6 +11,18 @@ var Player = function(map, width, speed, eventcallback, graceperiod_end) {
     this.eventcallback = eventcallback;
     this.graceperiod_end = graceperiod_end || 0;
     this.dead = null;
+    this.diecallback = diecallback;
+};
+
+Player.prototype.kill = function(t) {
+    if (this.dead === null)
+    {
+        this.dead = t;
+        if (this.diecallback)
+        {
+            this.diecallback(t);
+        }
+    }
 };
 
 Player.prototype.getLineSegments = function (y0, y1, t) {
@@ -111,7 +123,7 @@ Player.prototype.createEvent = function(t, action) {
     {
         event.dx = 0;
         event.v = 0;
-        this.dead = event.t;
+        this.kill(event.t);
     }
     
 
@@ -200,7 +212,7 @@ Player.prototype.getPosition = function(t) {
         if (now >= this.graceperiod_end && (tile === "X" || tile === "O"))
         {
             obstacle = true;
-            this.dead = now;
+            this.kill(now);
             break;
         }
         if (tile === "+")
@@ -217,9 +229,14 @@ Player.prototype.getPosition = function(t) {
             continue;
         }
 
-        if (add_event && !this.dead)
+        if (add_event || this.dead)
         {
-            this.addEvent({x:x, y:y, t:now, v:v, dx:dx, obstacle:obstacle, score:score});
+            var ev = {x:x, y:y, t:now, v:v, dx:dx, obstacle:obstacle, score:score};
+            this.addEvent(ev);
+            if (this.eventcallback)
+            {
+                this.eventcallback(ev);
+            }
         }
 
         vy = v * velocity_factor[Math.abs(dx)];
