@@ -8,7 +8,7 @@ var Camera = function(width, height, pixelSize, gameTimer, subjectPlayer) {
     var subjectPlayer = null;
     var callbackMap = null;
 
-    var top = Math.floor(height / 3) * 2;
+    var top = Math.floor(height / 3);
     var bottom = height - top;
 
     camera.update = function(gameTime) {
