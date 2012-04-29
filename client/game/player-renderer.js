@@ -18,7 +18,7 @@ var PlayerRenderer = function(players, gameTimer, camera, magic) {
     }
 
 
-    var fadeDistance = 100;
+    var fadeDistance = 500;
 
     var drawXValues = function(player, gameTime, color) {
         var ys = camera.getYs();
