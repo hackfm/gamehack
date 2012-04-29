@@ -213,7 +213,7 @@ Player.prototype.getPosition = function(t) {
         {
             obstacle = true;
             this.kill(now);
-            break;
+            add_event = true;
         }
         if (tile === "+")
         {
