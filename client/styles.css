@@ -54,9 +54,28 @@ body {
     text-decoration: none;
     text-align: center;
     padding: 10px;
+    z-index: 100;
 }
 
 .message:hover {
     background: #000;
     color: #fff;
 }
+
+.leftButton,
+.rightButton {
+    position: absolute;
+    height: 100%;
+    width: 50%;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    display: block;
+}
+
+.rightButton {
+    right: 0;
+    left: auto;
+}
+
+
