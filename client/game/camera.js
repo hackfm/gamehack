@@ -1,4 +1,4 @@
-var Camera = function(width, height, pixelSize, gameTimer, subjectPlayer) {
+var Camera = function(width, height, pixelSize, gameTimer, startY) {
     var camera = {}
     camera.y0 = 0;
     camera.y1 = height;
@@ -43,6 +43,9 @@ var Camera = function(width, height, pixelSize, gameTimer, subjectPlayer) {
     camera.setFocusPlayer = function(player) {
         subjectPlayer = player;
     }
+
+    camera.y0 = startY - top; // start (bottom of screen)
+    camera.y1 = startY + bottom; // end (top of screen)
 
 
     gameTimer.subscribe(camera.update);    

@@ -18,9 +18,8 @@ var yourPlayer;
 
             gameTimer.setGameTime(gTime);
 
-
             // Width, Height, Pixel size
-            var camera = new Camera(48, 57, 8, gameTimer);
+            var camera = new Camera(48, 57, 8, gameTimer, startY);
 
             $('#game').css('width', camera.width * camera.pixelSize);
 
@@ -72,8 +71,6 @@ var yourPlayer;
             var backgroundElem = $("#background")[0];
 
             var backgroundRenderer = new BackgroundRenderer(gameTimer, camera, backgroundElem, MagicRenderer);
-                    
-            yourPlayer.addEvent({t: gameTimer.getGameTime(), x: Math.round(camera.width/2), y: 0, v: 1, dx: 0});
 
             var controls = new Controls(yourPlayer, gameTimer);
 

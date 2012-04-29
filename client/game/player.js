@@ -231,7 +231,7 @@ Player.prototype.getPosition = function(t) {
             continue;
         }
 
-        if (add_event && !deal_already)
+        if (add_event && !dead_already)
         {
             var ev = {x:x, y:y, t:now, v:v, dx:dx, obstacle:obstacle, score:score};
             this.addEvent(ev);
