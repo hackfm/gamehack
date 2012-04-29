@@ -80,7 +80,7 @@ Level.prototype.getMap = function(number, length, width)
     }
     
     // obstacles
-    var o=6+ mt.extract_number()%24;
+    var o = 6 + mt.extract_number() % 15;
     for (var i=0; i<o; ++i)
     {
         var w=(width*0.4) | 0;
