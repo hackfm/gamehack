@@ -8,38 +8,39 @@ class Server
             else
                 console.log 'Y U NO USE Server.onGametime??'
 
+        @socket.on 'startGame', (data) =>
+            if @startCallback 
+                @startCallback data.y
+            else
+                console.log 'Y U NO USE Server.onStartCallback??'
+
         @socket.on 'mapSegment', (data) =>
             if @callbackOnMapSegment 
                 @callbackOnMapSegment data
             else
                 console.log 'Y U NO USE Server.onMapSegment??'
 
-    onGametime: (callbackOnGametime) =>
-        @callbackOnGametime = callbackOnGametime
+        @socket.on 'playerEventBroadcast', (data) =>
+            if @playerEventBroadcastCallback 
+                @playerEventBroadcastCallback data.id, data.event
+            else
+                console.log 'Y U NO USE Server.onPlayerEventBroadcastCallback??'
+
+    onGametime: (@callbackOnGametime) =>
 
     onMapSegment: (@callbackOnMapSegment) =>
+
+    onStartCallback: (@startCallback) =>
+
+    onPlayerEventBroadcastCallback: (@playerEventBroadcastCallback) =>
+        console.log 'adding a  callback', @playerEventBroadcastCallback
+
 
     askForMapSegment: (num) =>
         @socket.emit('sendMapSegment', num)
 
-
-class FakeServer    
-    constructor: () ->
-    
-        ###
-        @socket.on 'mapSegment', (data) =>
-            if @callbackOnMapSegment 
-                @callbackOnMapSegment data
-            else
-                console.log 'Y U NO USE Server.onMapSegment??'
-                ###
-
-    onGametime: (callbackOnGametime) =>
-        callbackOnGametime 10
-
-    onMapSegment: (@callbackOnMapSegment) =>
-
-    askForMapSegment: (num) =>
+    playerEventCallback: (id, event) =>
+        @socket.emit 'playerEvent', {id: id, event: event}
         
 
 

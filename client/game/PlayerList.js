@@ -24,15 +24,14 @@ PlayerList = (function() {
     this.players[this.id] = this.thisPlayer;
   }
 
-  PlayerList.prototype.updatePlayer = function(data) {
+  PlayerList.prototype.updatePlayer = function(id, event) {
     var player;
-    console.log(data);
-    if (this.players[data.id] != null) {
-      return this.players[data.id].add(data);
+    if (this.players[id] != null) {
+      return this.players[id].addEvent(event);
     } else {
       player = new Player(this.map, 48, this.globalSpeed);
-      player.add(data);
-      return this.players[data.id] = player;
+      player.addEvent(event);
+      return this.players[id] = player;
     }
   };
 
@@ -43,17 +42,14 @@ PlayerList = (function() {
   };
 
   PlayerList.prototype.otherPlayers = function() {
-    var list, player, _fn, _i, _len, _ref;
+    var id, list, player, _ref;
     list = [];
     _ref = this.players;
-    _fn = function(player, list) {
+    for (id in _ref) {
+      player = _ref[id];
       if (this.thisPlayer !== player) {
-        return list.push(player);
+        list.push(player);
       }
-    };
-    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-      player = _ref[_i];
-      _fn(player, list);
     }
     return list;
   };

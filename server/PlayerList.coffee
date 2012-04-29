@@ -1,10 +1,13 @@
-class PlayerList
+events = require 'events'
+
+class PlayerList extends events.EventEmitter
     constructor: () ->
         @players = {}
+        @setMaxListeners 0
 
     getStartY: () =>
         startY = 200 
-        for player, playerId in @players
+        for playerId, player of @players
             if player[0].y > startY
                 startY = player[0].y
         return startY
@@ -18,8 +21,10 @@ class PlayerList
         else
             @players[id] = [event]
 
+        @emit 'playerEventBroadcast', id, event
+
     deletePlayer: (id) =>
         delete @players[id]
 
 
-module.export = PlayerList
+module.exports = PlayerList

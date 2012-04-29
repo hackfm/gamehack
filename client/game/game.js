@@ -9,12 +9,10 @@ var yourPlayer;
         var gameTimer = new GameTimer(30);
 
         // This object communicates with the server
-        var server = new FakeServer();
-        //var server = new Server();
+        var server = new Server();
 
         server.onGametime(function(gTime) {
             gameTimer.setGameTime(gTime);
-            console.log("Gametime:",gameTimer.getGameTime());
         });
 
         // Width, Height, Pixel size
@@ -30,9 +28,10 @@ var yourPlayer;
             return map.getPixel(x, y);
         };
 
-
         // This is you! Yeah!
-        var yourPlayer = new Player(mapCheckFunction, camera.width, globalSpeed);
+        var yourPlayer = new Player(mapCheckFunction, camera.width, globalSpeed, function (event) {
+            server.playerEventCallback(playerList.id, event);
+        });
         camera.setFocusPlayer(yourPlayer);
         camera.onUpdateMap(function(offsetY) {
             map.drawArea(offsetY);
@@ -40,7 +39,7 @@ var yourPlayer;
         
         // We store all players in a dedicated list
         var playerList = new PlayerList(yourPlayer, server, mapCheckFunction, globalSpeed);        
-
+        server.onPlayerEventBroadcastCallback(playerList.updatePlayer);
 
         //var playerMagic = new MagicCanvas(playersElem, width, height);
         var playerMagicTable = new MagicTable($("#players")[0], camera.width, camera.height, camera.pixelSize);
@@ -48,14 +47,17 @@ var yourPlayer;
 
         var backgroundElem = $("#background")[0];
         //var backgroundRenderer = new BackgroundRenderer(gameTimer, camera, backgroundElem);
-
-                
-        yourPlayer.addEvent({t: gameTimer.getGameTime(), x: Math.round(camera.width/2), y: 0, v: 1, dx: 0});
-
+  
+        
         var controls = new Controls(yourPlayer, gameTimer);
 
-        // Start the timer!
-        gameTimer.start();
+        server.onStartCallback(function (startY) {
+            console.log ('start at', startY);
+            yourPlayer.addEvent({t: gameTimer.getGameTime(), x: Math.round(camera.width/2), y: startY, v: 1, dx: 0});
+            
+            // Start the timer!
+            gameTimer.start();
+        });        
 
 
     })
