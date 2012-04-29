@@ -21,11 +21,20 @@ class Server
             else
                 console.log 'Y U NO USE Server.onPlayerEventBroadcastCallback??'
 
+        @socket.on 'removePlayerBroadcast', (id) =>
+            console.log('mashmashmahs');
+            if @removePlayerBroadcastCallback 
+                @removePlayerBroadcastCallback id
+            else
+                console.log 'Y U NO USE Server.onRemovePlayerBroadcastCallback??'
+
     onMapSegment: (@callbackOnMapSegment) =>
 
     onStartCallback: (@startCallback) =>
 
     onPlayerEventBroadcastCallback: (@playerEventBroadcastCallback) =>
+
+    onRemovePlayerBroadcastCallback: (@removePlayerBroadcastCallback) =>
 
     sendPlayerDead: (id) =>
         @socket.emit 'playerDead', {id: id}
