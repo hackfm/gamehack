@@ -3,12 +3,14 @@ var velocity_factor = [
     0.7071067811865476
     ];
 
-var Player = function(map, width, speed, eventcallback) {
+var Player = function(map, width, speed, eventcallback, graceperiod_end) {
     this.map = map;
     this.width = width;
     this.speed = speed||1;
     this.events = [];
     this.eventcallback = eventcallback;
+    this.graceperiod_end = graceperiod_end || 0;
+    this.dead = null;
 };
 
 Player.prototype.getLineSegments = function (y0, y1, t) {
@@ -80,6 +82,9 @@ Player.prototype.addEvent = function (event) {
 }
 
 Player.prototype.createEvent = function(t, action) {
+    if (this.dead !== null && this.dead <= t)
+        return;
+
     var event = this.getPosition(t);
     var dx = 0;
     
@@ -96,13 +101,14 @@ Player.prototype.createEvent = function(t, action) {
         if (event.dx !== dx)
         {
             event.dx = dx;
-            event.v = Math.max(Math.min(event.v / 1.05, 2.0), 0.2);
+            event.v = Math.max(event.v / 1.01, 0.2);
         }
     }
     else
     {
         event.dx = 0;
         event.v = 0;
+        this.dead = event.t;
     }
     
 
@@ -154,7 +160,7 @@ Player.prototype.getPosition = function(t) {
     var dx = (event.dx||0)|0;
     var vy = v * velocity_factor[Math.abs(dx)];
     var T = inc/vy/this.speed; // time needed for travelling one pixel in y-direction
-    var obstacle = false;
+    var obstacle = !!event.obstacle;
     var score = event.score;
 
     while(true)
@@ -172,15 +178,16 @@ Player.prototype.getPosition = function(t) {
 
         var tile = this.map(x, y);
 
-        if (tile === "X" || tile === "O")
+        if (now >= this.graceperiod_end && (tile === "X" || tile === "O"))
         {
             obstacle = true;
+            this.dead = now;
             break;
         }
         if (tile === "+")
         {
             v *= 1.1;
-            score += 500;
+            score += 100;
         }
         else if (tile === "-")
         {
