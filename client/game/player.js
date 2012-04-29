@@ -154,7 +154,7 @@ Player.prototype.getPosition = function(t) {
         return event;
     }
 
-    var a = 0.01;
+    var a = 0.03;
     var v = event.v; // current velocity
     var now = event.t;
     var x = event.x;
