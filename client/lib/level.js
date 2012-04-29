@@ -83,26 +83,17 @@ Level.prototype.getMap = function(number, length, width)
     var o=6+ mt.extract_number()%24;
     for (var i=0; i<o; ++i)
     {
-        var x;
-        var w=(width*0.6) | 0;
-        
-        if (mt.extract_number() & 1)
-        {
-          x=0;  
-        }
-        else
-        {
-            x=width - w;
-        }
+        var w=(width*0.4) | 0;
+        var x = mt.extract_number() % (width-w+1);
 
         var y=(((i+0.5)/o)*length) | 0;
 
         for (var yy=0; yy<5; ++yy)
         {
             var c = (yy==0 || yy==4) ? "X":"O";
-            for (var xx=0; xx<w; ++xx)
+            for (var xx=w; xx<width; ++xx)
             {
-               field[y+yy][x+xx] = c;
+               field[y+yy][(x+xx)%width] = c;
             }
         }
     }
