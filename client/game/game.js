@@ -51,7 +51,7 @@ var yourPlayer;
             camera.onUpdateMap(function(offsetY, score) {
                 map.drawArea(offsetY);
                 var score_string = score.toFixed();
-                while (score_string.length < 5)
+                while (score_string.length < 6)
                 {
                     score_string = "0"+score_string;
                 }
