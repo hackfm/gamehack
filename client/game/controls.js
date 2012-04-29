@@ -8,23 +8,23 @@ var Controls = function(player, gameTimer) {
     var rightPressed = false;
 
     var leftButton = $('<a href="#" class="phoneButton leftButton"></a>');
+    var middleButton = $('<a href="#" class="phoneButton middleButton"></a>');
     var RightButton = $('<a href="#" class="phoneButton rightButton"></a>');
 
-    $(document.body).append(leftButton).append(RightButton);
+    $(document.body).append(leftButton).append(middleButton).append(RightButton);
 
-    $(".phoneButton").mousedown(function(e) {
+    $(".phoneButton").click(function(e) {
         e.preventDefault()
-        if ($(e.target).hasClass('leftButton')) {
+        var target = $(e.target);
+
+        if (target.hasClass('leftButton')) {
             player.createEvent(gameTimer.getGameTime(), 'left');    
+        } else if (target.hasClass('rightButton')) {
+            player.createEvent(gameTimer.getGameTime(), 'right');
         } else {
-            player.createEvent(gameTimer.getGameTime(), 'right');    
+            player.createEvent(gameTimer.getGameTime());    
         }
-    })
-
-    $(".phoneButton").mouseup(function(e) {
-        player.createEvent(gameTimer.getGameTime());    
     });
-
 
     var keyDownHandler = function(evt) {
         switch(evt.keyCode) {
