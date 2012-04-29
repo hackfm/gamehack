@@ -63,10 +63,11 @@ body {
 }
 
 .leftButton,
+.middleButton,
 .rightButton {
     position: absolute;
     height: 100%;
-    width: 50%;
+    width: 33.333%;
     top: 0;
     left: 0;
     bottom: 0;
@@ -76,6 +77,10 @@ body {
 .rightButton {
     right: 0;
     left: auto;
+}
+
+.middleButton {
+    left: 33.333%;
 }
 
 
