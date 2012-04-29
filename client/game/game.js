@@ -35,6 +35,8 @@ var yourPlayer;
 
             // This is you! Yeah!
             var yourPlayer = new Player(mapCheckFunction, camera.width, globalSpeed, function (event) {
+                
+                console.log('hereh');
                 if (event.obstacle) {
                     // You are dead! 
                     server.sendPlayerDead(playerList.id);
