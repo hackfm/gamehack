@@ -2,11 +2,11 @@
     Game hack server
 ###
 
-
 url        = require 'url'
 path       = require 'path'
 fs         = require 'fs'
 mapHelper  = require './mapHelper.functions'
+PlayerList = require './PlayerList'
 
 # MIME Types
 mimeTypes = 
@@ -19,6 +19,7 @@ mimeTypes =
 
 SEED = 1;
 
+playerList = new PlayerList();
 
 app = require('http').createServer (req, res) ->
     console.log 'here'
@@ -44,9 +45,7 @@ app = require('http').createServer (req, res) ->
         console.log mimeType
         res.writeHead 200, {'Content-Type':mimeType}
         fileStream = fs.createReadStream filename
-        fileStream.pipe res
-        
-        
+        fileStream.pipe res     
 
 # Port stuff, start the webserver
 args = process.argv.splice(2);
@@ -66,6 +65,10 @@ app.listen port
 # Game time starts here:
 gameTimeZero = new Date().getTime()/1000
 
+
+
+
+
 # Socket Server
 ## start socket io
 io = require('socket.io').listen portSocket
@@ -74,6 +77,8 @@ io.sockets.on 'connection', (socket) =>
     # send gametime
     socket.emit 'gametime', { gametime: (new Date().getTime()/1000) - gameTimeZero }
 
+
+
     ###
     # map tiles might be requested
     socket.on 'sendMapSegment', (num) =>
@@ -81,6 +86,3 @@ io.sockets.on 'connection', (socket) =>
         console.log 'map', num, data
         socket.emit 'mapSegment', data
     ###
-
-
-
