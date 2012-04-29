@@ -34,13 +34,29 @@ var yourPlayer;
             };
 
             // This is you! Yeah!
+            var died_before = false;
             var yourPlayer = new Player(mapCheckFunction, camera.width, globalSpeed, function (event) {
                 if (event.obstacle) {
-                    $('#music').attr('src', 'http://users.last.fm/~marek/hoffracer_death.mp3');
-                    // You are dead! 
-                    server.sendPlayerDead(playerList.id);
-                    // TODO: Remove key handlers
-                    $("#game").append('<a href="#" class="message" onclick="window.location.reload()">YOU ARE MASH!</a>')
+
+                    if (!died_before)
+                    {
+                        $('#music').attr('src', 'http://users.last.fm/~marek/hoffracer_death.mp3');
+                        // You are dead!
+                        server.sendPlayerDead(playerList.id);
+                        // TODO: Remove key handlers
+                        $("#game").append('<a href="#" class="message" onclick="window.location.reload()">YOU ARE MASH!</a>')
+                        $("#url").append('<br><a href="http://twitter.com/?status=I+just+scored+'+event.score+'+points+in+%23urmash.+http%3A%2F%2Fu-r-mash.spacedentist.net%2F+%23gamehack">TWEET YOUR SCORE!</a>');
+                        $(".phoneButton").remove();
+
+                        var credits = $('<div class="credits"><a href="http://www.twitter.com/dawhiting">dawhiting</a><br/><a href="http://www.twitter.com/marekventur">marekventur</a><br /><a href="http://www.twitter.com/spacedentist">spacedentist</a><br/><a href="http://www.twitter.com/tdhooper">tdhooper</a></div>');
+                        credits.css('top', camera.height * camera.pixelSize);
+                        $("#game").append(credits);
+                        credits.css('top',  -credits.height() + 370);
+
+
+                        died_before = true;
+                    }
+
                 }
                 else
                 {

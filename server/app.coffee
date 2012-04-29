@@ -35,6 +35,7 @@ app = require('http').createServer (req, res) ->
             res.write '404 Not Found\n'
             res.end('not found')   
             return
+   
         mimeType = mimeTypes[path.extname(filename).split(".")[1]]
         res.writeHead 200, {'Content-Type':mimeType}
         fileStream = fs.createReadStream filename
@@ -65,7 +66,8 @@ playerList = new PlayerList()
 ## start socket io
 io = require('socket.io').listen portSocket
 io.sockets.on 'connection', (socket) =>
-
+    
+    socket.setMaxListeners 0
     playerId = null
     # send gametime
     socket.emit 'startGame', { y: playerList.getStartY(), gametime: (new Date().getTime()/1000) - gameTimeZero}
@@ -74,15 +76,26 @@ io.sockets.on 'connection', (socket) =>
         playerId = data.id
         playerList.getAddEventForPlayer data.id, data.event
 
-    playerList.on 'playerEventBroadcast', (id, event) =>
+    eventBroadcastEvent = (id, event) =>
         if id isnt playerId
             socket.emit 'playerEventBroadcast', { id: id, event:event}
+
+    playerList.on 'playerEventBroadcast', eventBroadcastEvent
 
     socket.on 'playerDead', (data) =>
         playerList.deletePlayer  data.id
 
-    playerList.on 'removePlayerBroadcast', (id) =>
-        #if id isnt playerId
-            socket.emit 'removePlayerBroadcast', id
+
+    removePlayerBroadcastEvent = (id) =>
+        socket.emit 'removePlayerBroadcast', id
+
+    playerList.on 'removePlayerBroadcast', removePlayerBroadcastEvent
+
+    socket.on 'disconnect', () =>
+        playerList.removeListener 'playerEventBroadcast', eventBroadcastEvent
+        playerList.removeListener 'removePlayerBroadcast', removePlayerBroadcastEvent
+
+    socket.on 'sendY', (y) =>
+        playerList.setY y
 
 

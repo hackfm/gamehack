@@ -4,13 +4,21 @@ class PlayerList extends events.EventEmitter
     constructor: () ->
         @players = {}
         @setMaxListeners 0
+        @maxY = 200;
 
     getStartY: () =>
+        
         startY = 200 
         for playerId, player of @players
             if player[0].y > startY
                 startY = player[0].y
         return startY
+        
+        #return @maxY
+
+    setY: (y) =>
+        if @maxY < y
+            @maxY = y
 
     getDeathline: () =>
         return getStartY() - 200;

@@ -41,6 +41,10 @@ class Server
 
     playerEventCallback: (id, event) =>
         @socket.emit 'playerEvent', {id: id, event: event}
-        
 
+    playerEventCallback: (id, event) =>
+        @socket.emit 'playerEvent', {id: id, event: event}
+        
+    sendY: (y) =>
+        @socket.emit 'sendY', y
 

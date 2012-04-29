@@ -1,7 +1,7 @@
 var BackgroundRenderer = function(gameTimer, camera, container, MagicRenderer) {
     var pub = {};
 
-    var blockHeight = 100;
+    var blockHeight = 60;
     var activeBlocks = [];
 
     var colours = [
@@ -25,7 +25,9 @@ var BackgroundRenderer = function(gameTimer, camera, container, MagicRenderer) {
     var colourIndex = 0;
     var currentColour;
 
-    var cameraStart = camera.getCenter();
+            var parallax = 3;
+
+    var cameraStart = camera.getCenter()*parallax;
 
     $(container).css('height', camera.height * camera.pixelSize)
     $(container).css('width', camera.width * camera.pixelSize)
@@ -78,7 +80,7 @@ var BackgroundRenderer = function(gameTimer, camera, container, MagicRenderer) {
     }
 
 
-    var addLastToFirst = function(y0, y1) {
+    var addLastToFirst = function(y0) {
         var firstBlock = activeBlocks[0];
         var lastBlock = activeBlocks[activeBlocks.length-1];
         if (firstBlock && firstBlock.y1 < y0) {
@@ -106,14 +108,13 @@ var BackgroundRenderer = function(gameTimer, camera, container, MagicRenderer) {
         });
     }
 
-    addBlocks(2);
+    addBlocks(3);
 
     var update = function() {
         var ys = camera.getYs();
-        y0 = ys.y0 + blockHeight/2;
-        y1 = ys.y1 - blockHeight/2;
-        addLastToFirst(y0, y1);
-        positionBlocks(camera.getCenter());
+        y0 = ys.y0*parallax - 0;
+        addLastToFirst(y0);
+        positionBlocks(camera.getCenter()*parallax);
     }
 
     gameTimer.subscribe(update);
