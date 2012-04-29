@@ -5,6 +5,15 @@ var PlayerRenderer = function(players, gameTimer, camera, magic) {
         {player: [0, 255, 0, 1], tail: [255, 0, 255, 1], radar: [0, 255, 0, 1]},
         {player: [255, 255, 0, 1], tail: [0, 0, 255, 1], radar: [255, 255, 0, 1]},
         {player: [255, 0, 255, 1], tail: [0, 255, 0, 1], radar: [255, 0, 255, 1]},
+        {player: [0, 255, 0, 1], tail: [255, 0, 255, 1], radar: [0, 255, 0, 1]},
+        {player: [255, 255, 0, 1], tail: [0, 0, 255, 1], radar: [255, 255, 0, 1]},
+        {player: [255, 0, 255, 1], tail: [0, 255, 0, 1], radar: [255, 0, 255, 1]},
+        {player: [0, 255, 0, 1], tail: [255, 0, 255, 1], radar: [0, 255, 0, 1]},
+        {player: [255, 255, 0, 1], tail: [0, 0, 255, 1], radar: [255, 255, 0, 1]},
+        {player: [255, 0, 255, 1], tail: [0, 255, 0, 1], radar: [255, 0, 255, 1]},
+        {player: [0, 255, 0, 1], tail: [255, 0, 255, 1], radar: [0, 255, 0, 1]},
+        {player: [255, 255, 0, 1], tail: [0, 0, 255, 1], radar: [255, 255, 0, 1]},
+        {player: [255, 0, 255, 1], tail: [0, 255, 0, 1], radar: [255, 0, 255, 1]},
     ];
 
     var drawPoints = function(player, gameTime) {
