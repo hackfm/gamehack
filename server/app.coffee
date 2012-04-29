@@ -35,6 +35,7 @@ app = require('http').createServer (req, res) ->
             res.write '404 Not Found\n'
             res.end('not found')   
             return
+   
         mimeType = mimeTypes[path.extname(filename).split(".")[1]]
         res.writeHead 200, {'Content-Type':mimeType}
         fileStream = fs.createReadStream filename
@@ -65,7 +66,8 @@ playerList = new PlayerList()
 ## start socket io
 io = require('socket.io').listen portSocket
 io.sockets.on 'connection', (socket) =>
-
+    
+    socket.setMaxListeners 0
     playerId = null
     # send gametime
     socket.emit 'startGame', { y: playerList.getStartY(), gametime: (new Date().getTime()/1000) - gameTimeZero}
@@ -92,5 +94,8 @@ io.sockets.on 'connection', (socket) =>
     socket.on 'disconnect', () =>
         playerList.removeListener 'playerEventBroadcast', eventBroadcastEvent
         playerList.removeListener 'removePlayerBroadcast', removePlayerBroadcastEvent
+
+    socket.on 'sendY', (y) =>
+        playerList.setY y
 
 
