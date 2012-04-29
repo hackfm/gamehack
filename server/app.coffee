@@ -66,7 +66,8 @@ playerList = new PlayerList()
 ## start socket io
 io = require('socket.io').listen portSocket
 io.sockets.on 'connection', (socket) =>
-
+    
+    socket.setMaxListeners 0
     playerId = null
     # send gametime
     socket.emit 'startGame', { y: playerList.getStartY(), gametime: (new Date().getTime()/1000) - gameTimeZero}
