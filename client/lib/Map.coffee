@@ -32,7 +32,8 @@ class Map
                 
                 @sceneryTable.setPixel x, height-y-1, color
     
-    getPixel: (x,y) =>
+    getPixel: (x,y) =>  
+        return ' ' if y < 0
         return @getY(y).charAt(x);
 
 

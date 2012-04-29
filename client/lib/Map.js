@@ -73,6 +73,9 @@ Map = (function() {
   };
 
   Map.prototype.getPixel = function(x, y) {
+    if (y < 0) {
+      return ' ';
+    }
     return this.getY(y).charAt(x);
   };
 
