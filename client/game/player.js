@@ -137,6 +137,8 @@ Player.prototype.createEvent = function(t, action) {
 }
 
 Player.prototype.getPosition = function(t) {
+    var dead_already = this.dead!==null && this.dead<t;
+
     var idx = this.events.length - 1;
 
     if (idx < 0)
@@ -229,7 +231,7 @@ Player.prototype.getPosition = function(t) {
             continue;
         }
 
-        if (add_event || this.dead)
+        if (add_event && !deal_already)
         {
             var ev = {x:x, y:y, t:now, v:v, dx:dx, obstacle:obstacle, score:score};
             this.addEvent(ev);
