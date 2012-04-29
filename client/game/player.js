@@ -3,11 +3,12 @@ var velocity_factor = [
     0.7071067811865476
     ];
 
-var Player = function(map, width, speed) {
+var Player = function(map, width, speed, eventcallback) {
     this.map = map;
     this.width = width;
     this.speed = speed||1;
     this.events = [];
+    this.eventcallback = eventcallback;
 };
 
 Player.prototype.getLineSegments = function (y0, y1, t) {
@@ -64,9 +65,9 @@ Player.prototype.getXValues = function (y0, y1, t) {
         {
             if (y>=y0 && y<=y1)
             {
-                xvalues[y-y0] = x;
-                x+=dx;
+                xvalues[y-y0] = Math.max(0, Math.min(x, this.width-1));
             }
+            x+=dx;
         }
     }
 
@@ -74,6 +75,7 @@ Player.prototype.getXValues = function (y0, y1, t) {
 }
 
 Player.prototype.addEvent = function (event) {
+    event.score = event.score || 0;
     this.events.push(event);
 }
 
@@ -94,7 +96,7 @@ Player.prototype.createEvent = function(t, action) {
         if (event.dx !== dx)
         {
             event.dx = dx;
-            event.v = Math.max(Math.min(event.v / 1.1, 1.0), 0.2);
+            event.v = Math.max(Math.min(event.v / 1.05, 2.0), 0.2);
         }
     }
     else
@@ -105,6 +107,11 @@ Player.prototype.createEvent = function(t, action) {
     
 
     this.addEvent(event);
+    if (this.eventcallback)
+    {
+        this.eventcallback(event);
+    }
+    
     return event;
 }
 
@@ -138,7 +145,7 @@ Player.prototype.getPosition = function(t) {
         return event;
     }
 
-    var a = 0.003;
+    var a = 0.01;
     var v = event.v; // current velocity
     var now = event.t;
     var x = event.x;
@@ -148,6 +155,7 @@ Player.prototype.getPosition = function(t) {
     var vy = v * velocity_factor[Math.abs(dx)];
     var T = inc/vy/this.speed; // time needed for travelling one pixel in y-direction
     var obstacle = false;
+    var score = event.score;
 
     while(true)
     {
@@ -157,22 +165,24 @@ Player.prototype.getPosition = function(t) {
             break;
         }
         now = next;
+        score += Math.pow(v*3, 2) |0;
         y += inc;
         x += dx;
         v = Math.min(v+2*a*T, 3.0);
 
         var tile = this.map(x, y);
 
-        if (tile === "obstacle")
+        if (tile === "X" || tile === "O")
         {
             obstacle = true;
             break;
         }
-        if (tile === "speedup")
+        if (tile === "+")
         {
             v *= 1.1;
+            score += 500;
         }
-        else if (tile === "slowdown")
+        else if (tile === "-")
         {
             v /= 1.1;
         }
@@ -184,7 +194,18 @@ Player.prototype.getPosition = function(t) {
         T = inc/vy/this.speed;
     }
 
-    return {x:x, y:y, t:now, v:v, dx:dx, obstacle:obstacle};
+    if (x<0)
+    {
+        x=0;
+        dx=0;
+    }
+    else if (x>=this.width)
+    {
+        x=this.width-1;
+        dx=0;
+    }
+
+    return {x:x, y:y, t:now, v:v, dx:dx, obstacle:obstacle, score:score};
 }
 
 if ((typeof(module) != "undefined"))

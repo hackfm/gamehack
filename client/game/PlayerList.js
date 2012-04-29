@@ -6,10 +6,11 @@ PlayerList = (function() {
 
   PlayerList.name = 'PlayerList';
 
-  function PlayerList(thisPlayer, server, map) {
+  function PlayerList(thisPlayer, server, map, globalSpeed) {
     this.thisPlayer = thisPlayer;
     this.server = server;
     this.map = map;
+    this.globalSpeed = globalSpeed;
     this.otherPlayers = __bind(this.otherPlayers, this);
 
     this.you = __bind(this.you, this);
@@ -29,7 +30,7 @@ PlayerList = (function() {
     if (this.players[data.id] != null) {
       return this.players[data.id].add(data);
     } else {
-      player = new Player(this.map, 48);
+      player = new Player(this.map, 48, this.globalSpeed);
       player.add(data);
       return this.players[data.id] = player;
     }

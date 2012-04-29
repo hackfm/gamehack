@@ -6,8 +6,9 @@ var Camera = function(width, height, pixelSize, gameTimer, subjectPlayer) {
     camera.height = height;
     camera.pixelSize = pixelSize;
     var subjectPlayer = null;
+    var callbackMap = null;
 
-    var top = Math.round(height / 3) * 2;
+    var top = Math.floor(height / 3) * 2;
     var bottom = height - top;
 
     camera.update = function(gameTime) {
@@ -17,6 +18,14 @@ var Camera = function(width, height, pixelSize, gameTimer, subjectPlayer) {
             camera.y0 = position.y - top; // start (bottom of screen)
             camera.y1 = position.y + bottom; // end (top of screen)
         }
+
+        if (callbackMap) {
+            callbackMap(position.y - top);
+        }
+    }
+
+    camera.onUpdateMap = function (callback) {
+        callbackMap = callback;
     }
 
     camera.getYs = function() {
