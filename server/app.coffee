@@ -5,7 +5,7 @@
 url        = require 'url'
 path       = require 'path'
 fs         = require 'fs'
-mapHelper  = require './mapHelper.functions'
+#mapHelper  = require './mapHelper.functions'
 PlayerList = require './PlayerList'
 
 # MIME Types

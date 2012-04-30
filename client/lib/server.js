@@ -20,7 +20,7 @@ Server = (function() {
     this.onMapSegment = __bind(this.onMapSegment, this);
 
     var _this = this;
-    this.socket = io.connect('http://ec2-46-137-147-99.eu-west-1.compute.amazonaws.com:8081');
+    this.socket = io.connect('http://spacedentist.net:18081');
     this.socket.on('startGame', function(data) {
       if (_this.startCallback) {
         return _this.startCallback(data.gametime, data.y);
