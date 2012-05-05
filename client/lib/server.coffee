@@ -1,7 +1,7 @@
 # This is the class that talks to the server
 class Server    
     constructor: () ->
-        @socket = io.connect 'http://spacedentist.net:18081'
+        @socket = io.connect 'http://urmash.com:18081'
 
         @socket.on 'startGame', (data) =>
             if @startCallback 
