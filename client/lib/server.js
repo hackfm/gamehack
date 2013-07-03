@@ -20,7 +20,7 @@ Server = (function() {
     this.onMapSegment = __bind(this.onMapSegment, this);
 
     var _this = this;
-    this.socket = io.connect('http://80.81.254.39:8081');
+    this.socket = io.connect('http://urmash.spacedentist.net:8081');
     this.socket.on('startGame', function(data) {
       if (_this.startCallback) {
         return _this.startCallback(data.gametime, data.y);
