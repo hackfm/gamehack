@@ -45,7 +45,7 @@ var yourPlayer;
                         server.sendPlayerDead(playerList.id);
                         // TODO: Remove key handlers
                         $("#game").append('<a href="#" class="message" onclick="window.location.reload()">YOU ARE MASH!</a>')
-                        $("#url").append('<br><a href="http://twitter.com/?status=I+just+scored+'+event.score+'+points+in+%23urmash.+http%3A%2F%2Furmash.com%2F+%23gamehack">TWEET YOUR SCORE!</a>');
+                        $("#url").append('<br><a href="http://twitter.com/?status=I+just+scored+'+event.score+'+points+in+%23urmash.+http%3A%2F%2Fu-r-mash.com%2F+%23gamehack">TWEET YOUR SCORE!</a>');
                         $(".phoneButton").remove();
 
                         var credits = $('<div class="credits">Brought to you by:<br /><a href="http://www.twitter.com/dawhiting">@dawhiting</a><br/><a href="http://www.twitter.com/marekventur">@marekventur</a><br /><a href="http://www.twitter.com/spacedentist">@spacedentist</a><br/><a href="http://www.twitter.com/tdhooper">@tdhooper</a></div>');
