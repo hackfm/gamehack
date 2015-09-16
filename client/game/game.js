@@ -40,7 +40,7 @@ var yourPlayer;
 
                     if (!died_before)
                     {
-                        $('#music').attr('src', 'http://users.last.fm/~marek/hoffracer_death.mp3');
+                        $('#music').attr('src', 'audio/hoffracer_death.mp3');
                         // You are dead!
                         server.sendPlayerDead(playerList.id);
                         // TODO: Remove key handlers
